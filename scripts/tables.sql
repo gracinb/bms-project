@@ -9,12 +9,12 @@ drop table Employees;
 drop table Logs;
 
 create table Logs
-	(log# number(6) primary key,
-	user_name varchar2(15),
-	operation varchar2(15),
-	op_time date,
-	table_name varchar2(15),
-	tuple_pkey varchar2(10));
+	(log# number(5) primary key,
+	user_name varchar2(12) not null,
+	operation varchar2(6) not null,
+	op_time date not null,
+	table_name varchar2(20) not null,
+	tuple_pkey varchar2(6)); 
 
 create table Employees
 	(eid char(3) primary key,
@@ -30,8 +30,9 @@ create table Customers
 	last_visit_date date);
 
 create table Discounts
-	(discnt_category int primary key check (discnt_category >=1 AND discnt_category <=4),
-	discnt_rate number(3,2));
+	(discnt_category number(1) primary key check(discnt_category in (1, 2, 3, 4)),
+	discnt_rate number(3,2) check (discnt_rate between 0 and 0.8));
+
 
 create table Products
 	(pid char(4) primary key,
@@ -39,21 +40,23 @@ create table Products
 	qoh number(5),
 	qoh_threshold number(4),
 	original_price number(6,2),
-	discnt_category int references Discounts(discnt_category));
+	discnt_category number(1) references Discounts);
 
 create table Suppliers
-	(sid char(4) primary key,
-	name varchar2(15),
-	city varchar2(20),
-	telephone# char(12),
-	email varchar2(20));
+	(sid char(2) primary key,
+	name varchar2(15) not null unique,
+	city varchar2(15),
+	telephone# char(12) not null unique,
+	email varchar2(20) unique);
 
 create table Supplies
-	(sup# number(6) primary key,
+	(sup# number(4) primary key,
 	pid char(4) references Products(pid),
-	sid char(4) references Suppliers(sid),
+	sid char(2) references Suppliers(sid),
 	sdate date,
-	quantity number(5));
+	quantity number(5),
+	unique(pid, sid, sdate));
+
 
 create table Purchases
 	(pur# number(6) primary key,
@@ -94,13 +97,13 @@ insert into products values ('p007', 'Lamp', 20, 5, 50, 1);
 insert into products values ('p008', 'Couch', 6, 3, 300, 3);
 insert into products values ('p009', 'pencil', 100, 25, 4, 1);
 
-insert into suppliers values ('s001', 'SamSung', 'Seoul', '674-777-8888', 'samsung@gmail.com');
-insert into suppliers values ('s002', 'Apple', 'Cuperno', '746-888-7777', 'apple@nycap.rr.com');
-insert into suppliers values ('s003', 'HomeDepot', 'Troy', '518-972-4239', 'depot@gmail.com');
+insert into suppliers values ('s1', 'SamSung', 'Seoul', '674-777-8888', 'samsung@gmail.com');
+insert into suppliers values ('s2', 'Apple', 'Cuperno', '746-888-7777', 'apple@nycap.rr.com');
+insert into suppliers values ('s3', 'HomeDepot', 'Troy', '518-972-4239', 'depot@gmail.com');
 
-insert into supplies values ('0001', 'p001', 's003', to_date('12-AUG-2017 10:34:30', 'DD-MON-YYYY HH24:MI:SS'), 15);
-insert into supplies values ('0002', 'p003', 's001', to_date('19-DEC-2017 12:36:30', 'DD-MON-YYYY HH24:MI:SS'), 5);
-insert into supplies values ('0003', 'p005', 's002', to_date('12-JAN-2018 18:54:30', 'DD-MON-YYYY HH24:MI:SS'), 7);
+insert into supplies values ('0001', 'p001', 's3', to_date('12-AUG-2017 10:34:30', 'DD-MON-YYYY HH24:MI:SS'), 15);
+insert into supplies values ('0002', 'p003', 's1', to_date('19-DEC-2017 12:36:30', 'DD-MON-YYYY HH24:MI:SS'), 5);
+insert into supplies values ('0003', 'p005', 's2', to_date('12-JAN-2018 18:54:30', 'DD-MON-YYYY HH24:MI:SS'), 7);
 
 insert into purchases values (100001, 'e01', 'p002', 'c001', 1, to_date('12-AUG-2017 10:34:30', 'DD-MON-YYYY HH24:MI:SS'), 211.65);
 insert into purchases values (100002, 'e01', 'p003', 'c001', 1, to_date('20-SEP-2017 11:23:36', 'DD-MON-YYYY HH24:MI:SS'), 118.40);
