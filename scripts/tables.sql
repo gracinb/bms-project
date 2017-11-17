@@ -82,20 +82,20 @@ insert into customers values ('c006', 'Connie', '777-555-7654', 2, '16-OCT-17');
 insert into customers values ('c007', 'Katie', '888-555-6574', 1, '12-OCT-17');
 insert into customers values ('c008', 'Joe', '666-555-5746', 1, '14-OCT-17');
 
-insert into discounts values (1, .2);
-insert into discounts values (2, .4);
-insert into discounts values (3, .6);
-insert into discounts values (4, .8);
+insert into discounts values (1, 0.0);
+insert into discounts values (2, 0.1);
+insert into discounts values (3, 0.2);
+insert into discounts values (4, 0.3);
 
-insert into products values ('p001', 'chair', 10, 5, 50, 1);
-insert into products values ('p002', 'table', 5, 2, 150, 4);
-insert into products values ('p003', 'TV', 2, 1, 300, 3);
-insert into products values ('p004', 'Camera', 2, 1, 150, 1);
-insert into products values ('p005', 'Computer', 3, 1, 600, 1);
-insert into products values ('p006', 'Tablet', 50, 20, 150, 2);
-insert into products values ('p007', 'Lamp', 20, 5, 50, 1);
-insert into products values ('p008', 'Couch', 6, 3, 300, 3);
-insert into products values ('p009', 'pencil', 100, 25, 4, 1);
+insert into products values ('p001', 'stapler', 60, 20, 9.99, 2);
+insert into products values ('p002', 'TV', 6, 5, 249, 3);
+insert into products values ('p003', 'camera', 20, 5, 148, 3);
+insert into products values ('p004', 'pencil', 100, 10, 0.99, 1);
+insert into products values ('p005', 'chair', 10, 8, 12.98, 4);
+insert into products values ('p006', 'lamp', 10, 6, 19.95, 2);
+insert into products values ('p007', 'tablet', 50, 10, 149, 3);
+insert into products values ('p008', 'computer', 5, 3, 499, 4);
+insert into products values ('p009', 'powerbank', 20, 5, 49.95, 2);
 
 insert into suppliers values ('s1', 'SamSung', 'Seoul', '674-777-8888', 'samsung@gmail.com');
 insert into suppliers values ('s2', 'Apple', 'Cuperno', '746-888-7777', 'apple@nycap.rr.com');
@@ -105,7 +105,7 @@ insert into supplies values ('0001', 'p001', 's3', to_date('12-AUG-2017 10:34:30
 insert into supplies values ('0002', 'p003', 's1', to_date('19-DEC-2017 12:36:30', 'DD-MON-YYYY HH24:MI:SS'), 5);
 insert into supplies values ('0003', 'p005', 's2', to_date('12-JAN-2018 18:54:30', 'DD-MON-YYYY HH24:MI:SS'), 7);
 
-insert into purchases values (100001, 'e01', 'p002', 'c001', 1, to_date('12-AUG-2017 10:34:30', 'DD-MON-YYYY HH24:MI:SS'), 211.65);
+insert into purchases values (100001, 'e01', 'p002', 'c001', 1, to_date('12-AUG-2017 10:34:30', 'DD-MON-YYYY HH24:MI:SS'), 199.20);
 insert into purchases values (100002, 'e01', 'p003', 'c001', 1, to_date('20-SEP-2017 11:23:36', 'DD-MON-YYYY HH24:MI:SS'), 118.40);
 insert into purchases values (100003, 'e02', 'p004', 'c002', 5, to_date('08-OCT-2017 09:30:50', 'DD-MON-YYYY HH24:MI:SS'), 4.95);
 insert into purchases values (100004, 'e01', 'p005', 'c003', 2, to_date('23-AUG-2017 16:23:35', 'DD-MON-YYYY HH24:MI:SS'), 18.17);
@@ -114,12 +114,8 @@ insert into purchases values (100006, 'e03', 'p008', 'c001', 1, to_date('12-OCT-
 insert into purchases values (100007, 'e03', 'p006', 'c003', 2, to_date('10-SEP-2017 17:12:20', 'DD-MON-YYYY HH24:MI:SS'), 35.91);
 insert into purchases values (100008, 'e03', 'p006', 'c005', 1, to_date('16-AUG-2017 12:22:15', 'DD-MON-YYYY HH24:MI:SS'), 17.96);
 insert into purchases values (100009, 'e03', 'p001', 'c007', 1, to_date('12-OCT-2017 14:44:23', 'DD-MON-YYYY HH24:MI:SS'), 8.99);
-insert into purchases values (100010, 'e04', 'p002', 'c006', 1, to_date('19-SEP-2017 17:32:37', 'DD-MON-YYYY HH24:MI:SS'), 211.65);
+insert into purchases values (100010, 'e04', 'p002', 'c006', 1, to_date('19-SEP-2017 17:32:37', 'DD-MON-YYYY HH24:MI:SS'), 199.20);
 insert into purchases values (100011, 'e02', 'p004', 'c006', 10, to_date('16-OCT-2017 16:54:40', 'DD-MON-YYYY HH24:MI:SS'), 9.90);
 insert into purchases values (100012, 'e02', 'p008', 'c003', 2, to_date('18-SEP-2017 15:56:38', 'DD-MON-YYYY HH24:MI:SS'), 698.60);
 insert into purchases values (100013, 'e04', 'p006', 'c005', 2, to_date('30-AUG-2017 10:38:25', 'DD-MON-YYYY HH24:MI:SS'), 35.91);
 insert into purchases values (100014, 'e03', 'p009', 'c008', 3, to_date('14-OCT-2017 10:54:06', 'DD-MON-YYYY HH24:MI:SS'), 134.84);
-
-
-
-
