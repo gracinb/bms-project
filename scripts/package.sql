@@ -24,6 +24,9 @@ create or replace package refcursor_package as
 
         function showLogs
         return ref_cursor;
+        
+        procedure add_customer(c_id CHAR, c_name VARCHAR2, c_telephone# VARCHAR2);
+
 end;
 /
 
@@ -100,6 +103,11 @@ create or replace package body refcursor_package as
                 return rc;
 
         end;
+        
+        procedure add_customer(c_id CHAR, c_name VARCHAR2, c_telephone# VARCHAR2) is
+        begin
+                insert into customers values (c_id, c_name, c_telephone#, 1, SYSDATE);
+        end add_customer;
 
 end;
 /
