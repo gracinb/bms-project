@@ -27,6 +27,8 @@ create or replace package refcursor_package as
         
         procedure add_customer(c_id CHAR, c_name VARCHAR2, c_telephone# VARCHAR2);
 
+        procedure add_purchase(e_id CHAR, p_id CHAR, c_id CHAR, pur_qty NUMBER);
+
 end;
 /
 
