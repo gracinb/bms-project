@@ -111,5 +111,11 @@ create or replace package body refcursor_package as
                 insert into customers values (c_id, c_name, c_telephone#, 1, SYSDATE);
         end add_customer;
 
+	procedure add_purchase(e_id CHAR, p_id CHAR, c_id CHAR, pur_qty NUMBER) is
+	begin
+
+	end add_purchase;
+
+
 end;
 /
