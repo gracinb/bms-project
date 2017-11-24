@@ -27,7 +27,10 @@ create or replace package refcursor_package as
         
         procedure add_customer(c_id CHAR, c_name VARCHAR2, c_telephone# VARCHAR2);
 
-        procedure add_purchase(e_id CHAR, p_id CHAR, c_id CHAR, pur_qty NUMBER);
+        procedure add_purchase(e_id in Purchases.eid%type, 
+	p_id in Purchases.pid%type, 
+	c_id in Purchases.cid%type, 
+	pur_qty in Purchases.qty%type);
 
 end;
 /
@@ -111,8 +114,63 @@ create or replace package body refcursor_package as
                 insert into customers values (c_id, c_name, c_telephone#, 1, SYSDATE);
         end add_customer;
 
-	procedure add_purchase(e_id CHAR, p_id CHAR, c_id CHAR, pur_qty NUMBER) is
+	procedure add_purchase(e_id in Purchases.eid%type, 
+	p_id in Purchases.pid%type, 
+	c_id in Purchases.cid%type, 
+	pur_qty in Purchases.qty%type) is
+		—-cursor for products
+		cursor productCursor is
+			select *
+			from Products p;
+		cursor discountCursor is
+			select * from Discounts d;
+		—-variable declarations
+		productRecord productCursor%rowtype;
+		declarationRecord discountCursor%rowtype;
+		discountRate Discounts.discnt_rate%type;
+		itemPrice Products.original_price%type;
+		totalPrice Purchases.total_price%type;
+		—-still need to declare exceptions
+		not_enough_qty exception;
+		
 	begin
+		—-need to check errors for wrong insertion values
+
+		open productCursor;
+		loop
+			fetch productCursor into productRecord;
+			exit when productCursor%notfound;
+			if (productRecord.pid = p_id) then
+				—-found the product to buy
+				exit;
+			end if;
+		end loop;
+		close productCursor;
+		
+		open discountCursor;
+		loop
+			fetch discountCursor into discountRecord;
+			exit when discountCursor%notfound;
+			if (discountRecord.discnt_category = productRecord.discnt_category) then
+				exit;
+			end if;
+		end loop;
+		close discountCursor;
+		
+		if (productRecord.qoh < pur_qty) then
+			raise not_enough_qty;
+		end if;
+
+		itemPrice := productRecord.original_price * (1 - discountRecord.discnt_rate);
+		totalPrice := itemPrice * pur_qty;
+
+		insert into Purchases
+		VALUES (pur_seq.NEXTVAL, e_id, p_id, c_id, pur_qty, SYSDATE, totalPrice);
+	
+	exception
+
+		when not_enough_qty then
+			dbms_output.put_line(‘Not enough quantity on hand to make purchase.’);
 
 	end add_purchase;
 
