@@ -25,6 +25,11 @@ create or replace package refcursor_package as
         function showLogs
         return ref_cursor;
         
+	function getUserName
+        return VARCHAR2;
+
+        procedure setUserName(userName VARCHAR2);
+
         procedure add_customer(c_id CHAR, c_name VARCHAR2, c_telephone# VARCHAR2);
 
         procedure add_purchase(e_id in Purchases.eid%type, 
@@ -37,6 +42,7 @@ end;
 
 
 create or replace package body refcursor_package as
+        userName VARCHAR2(12);
 
         function showEmployees
         return ref_cursor is rc ref_cursor;
@@ -109,6 +115,18 @@ create or replace package body refcursor_package as
 
         end;
         
+	function getUserName
+        return VARCHAR2 is v_userName VARCHAR2(12);
+        begin
+                v_userName:= userName;
+                return v_userName;
+        end;
+
+        procedure setUserName(userName VARCHAR2) is
+        begin
+                refcursor_package.userName := userName;
+        end setUserName;
+
         procedure add_customer(c_id CHAR, c_name VARCHAR2, c_telephone# VARCHAR2) is
         begin
                 insert into customers values (c_id, c_name, c_telephone#, 1, SYSDATE);
