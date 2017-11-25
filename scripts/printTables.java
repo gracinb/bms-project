@@ -1,0 +1,196 @@
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Vector;
+
+import oracle.jdbc.pool.OracleDataSource;
+import oracle.jdbc.*;
+
+public class printTables {
+
+                private static String tables = "";
+        public static void main (Connection conn) throws SQLException{
+                try{
+                        Vector<CallableStatement> callables = new Vector<CallableStatement>(8);
+                        Vector<ResultSet> results = new Vector<ResultSet>(8);
+
+                        //Prepare to call stored procedure:
+                        CallableStatement employees = conn.prepareCall("begin ? := refcursor_package.showEmployees(); end;");
+                        CallableStatement customers = conn.prepareCall("begin ? := refcursor_package.showCustomers(); end;");
+                        CallableStatement products = conn.prepareCall("begin ? := refcursor_package.showProducts(); end;");
+                        CallableStatement discounts = conn.prepareCall("begin ? := refcursor_package.showDiscounts(); end;");
+                        CallableStatement suppliers = conn.prepareCall("begin ? := refcursor_package.showSuppliers(); end;");
+                        CallableStatement supplies = conn.prepareCall("begin ? := refcursor_package.showSupplies(); end;");
+                        CallableStatement purchases = conn.prepareCall("begin ? := refcursor_package.showPurchases(); end;");
+                        CallableStatement logs = conn.prepareCall("begin ? := refcursor_package.showLogs(); end;");
+
+                        callables.add(employees);
+                        callables.add(customers);
+                        callables.add(products);
+                        callables.add(discounts);
+                        callables.add(suppliers);
+                        callables.add(supplies);
+                        callables.add(purchases);
+                        callables.add(logs);
+
+                        for( int counter = 0; counter < callables.size(); counter++){
+                                CallableStatement cs = (CallableStatement) callables.elementAt(counter);
+                                //register the out parameter (the first parameter)
+                                cs.registerOutParameter(1, OracleTypes.CURSOR);
+
+                                cs.execute();
+                                ResultSet rs = (ResultSet)cs.getObject(1);
+                                results.add(rs);
+                        }
+                        printEmployees((ResultSet)results.elementAt(0),employees);
+                        printCustomers((ResultSet)results.elementAt(1),customers);
+                        printProducts((ResultSet)results.elementAt(2),products);
+                        printDiscounts((ResultSet)results.elementAt(3),discounts);
+                        printSuppliers((ResultSet)results.elementAt(4),suppliers);
+                        printSupplies((ResultSet)results.elementAt(5),supplies);
+                        printPurchases((ResultSet)results.elementAt(6),purchases);
+                        printLogs((ResultSet)results.elementAt(7),logs);
+
+                        conn.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+        }
+
+        private static void printEmployees(ResultSet rs, CallableStatement employees) throws SQLException{
+                try{
+                        tables += "Employees Tables \n";
+                        while(rs.next()){
+                                tables += rs.getString(1) + "\t" +
+                                          rs.getString(2) + "\t" +
+                                          rs.getString(3) + "\t" +
+                                          rs.getString(4) + "\t" + "\n";
+                        }
+                        employees.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+        }
+        private static void printCustomers(ResultSet rs, CallableStatement customers) throws SQLException{
+                try{
+                        tables += "\n" + "Customers Table" + "\n";
+                        while(rs.next()){
+                                tables += rs.getString(1) + "\t" +
+                                          rs.getString(2) + "\t" +
+                                          rs.getString(3) + "\t" +
+                                          rs.getInt(4) + "\t" +
+                                          rs.getString(5) + "\n";
+                        }
+                        customers.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+        }
+
+        private static void printProducts(ResultSet rs, CallableStatement products) throws SQLException{
+                try{
+                        tables += "\n" + "Products Table" + "\n";
+                        while(rs.next()){
+                                                 tables += rs.getString(1) + "\t" +
+                                                   rs.getString(2) + "\t" +
+                                                   rs.getInt(3) + "\t" +
+                                                   rs.getInt(4) + "\t" +
+                                                   rs.getDouble(5) + "\t" +
+                                                   rs.getInt(6)+ "\n";
+                        }
+                        products.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+
+        }
+
+        private static void printDiscounts (ResultSet rs, CallableStatement discounts) throws SQLException{
+                try{
+                        tables += "\n" + "Discounts Table" + "\n";
+                        while(rs.next()){
+                                                 tables += rs.getInt(1) + "\t" +
+                                                   rs.getDouble(2) + "\n";
+                        }
+                        discounts.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+
+        }
+
+        private static void printSuppliers(ResultSet rs, CallableStatement suppliers) throws SQLException{
+                try{
+                        tables += "\n" + "Suppliers Table" + "\n";
+                        while(rs.next()){
+                                                 tables += rs.getString(1) + "\t" +
+                                                   rs.getString(2) + "\t" +
+                                                   rs.getString(3) + "\t" +
+                                                   rs.getString(4) + "\t" +
+                                                   rs.getString(5) + "\n";
+                        }
+                        suppliers.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+
+        }
+
+        private static void printPurchases(ResultSet rs, CallableStatement purchases) throws SQLException{
+                try{
+                        tables += "\n" + "Purchases Table" + "\n";
+                        while(rs.next()){
+                                                 tables += rs.getInt(1) + "\t" +
+                                                   rs.getString(2) + "\t" +
+                                                   rs.getString(3) + "\t" +
+                                                   rs.getString(4) + "\t" +
+                                                   rs.getInt(5) + "\t" +
+                                                   rs.getString(6) + "\t" +
+                                                   rs.getDouble(7) + "\n";
+                        }
+                        purchases.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+        }
+        private static void printSupplies (ResultSet rs, CallableStatement supplies) throws SQLException{
+                try{
+                        tables += "\n" + "Supplies Table" + "\n";
+                        while(rs.next()){
+                                                 tables += rs.getInt(1) + "\t" +
+                                                   rs.getString(2) + "\t" +
+                                                   rs.getString(3) + "\t" +
+                                                   rs.getString(4) + "\t" +
+                                                   rs.getInt(5) + "\n";
+                        }
+                        supplies.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+        }
+
+        private static void printLogs (ResultSet rs, CallableStatement logs)throws SQLException{
+                try{
+                        tables += "\n" + "Logs Table" + "\n";
+                        while(rs.next()){
+                                                 tables += rs.getInt(1) + "\t" +
+                                                   rs.getString(2) + "\t" +
+                                                   rs.getString(3) + "\t" +
+                                                   rs.getString(4) + "\t" +
+                                                   rs.getString(5) + "\t" +
+                                                   rs.getString(6)+ "\n";
+                        }
+                        logs.close();
+                }
+                catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+                catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+        }
+
+        public static String getTables(){
+                return tables;
+        }
+}
