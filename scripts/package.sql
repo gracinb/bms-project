@@ -36,7 +36,7 @@ create or replace package refcursor_package as
 	p_id in Purchases.pid%type, 
 	c_id in Purchases.cid%type, 
 	pur_qty in Purchases.qty%type);
-
+ 
 end;
 /
 
