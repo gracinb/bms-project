@@ -6,4 +6,4 @@ Dominic:
 
 Brian:
 
-Shafkat: Did problem 7 and 9 for PL/SQL.
+Shafkat: Did problem 7 and 9 for PL/SQL. I gained more experience using GitHub and learned how to create a trigger, a procedure and calling SQL statements using JDBC.

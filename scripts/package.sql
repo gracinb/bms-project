@@ -42,6 +42,10 @@ create or replace package refcursor_package as
         c_name in Customers.name%type, 
         c_telephone# in Customers.telephone#%type);
 
+	--Objective: to add a purchase to the purchases table
+	--Usage: takes a employee id, product id, customer id and purchase quantity
+	-- Cursors are used to grab the referenced product, customer and to find
+	-- the right discount rate. Exceptions are taken care of as well
         procedure add_purchase(e_id in Purchases.eid%type, 
         p_id in Purchases.pid%type, 
         c_id in Purchases.cid%type, 
