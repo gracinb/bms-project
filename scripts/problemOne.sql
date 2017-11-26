@@ -24,67 +24,67 @@ declare
 	no_suppliers exception;
 	
 
-        —-pNum NUMBER(3,0);
-        -—CURSOR pur_cursor is select pur# from purchases;
+        --pNum NUMBER(3,0);
+        --CURSOR pur_cursor is select pur# from purchases;
 begin
-        —-FOR pur# in pur_cursor
-        —-LOOP
-        —-        select pur_seq.NEXTVAL into pNum from dual;
-        —-        DBMS_OUTPUT.PUT_LINE(LPAD(to_char(pNum),3,'0'));
-        —-END LOOP;
+        --FOR pur# in pur_cursor
+        --LOOP
+        --        select pur_seq.NEXTVAL into pNum from dual;
+        --        DBMS_OUTPUT.PUT_LINE(LPAD(to_char(pNum),3,'0'));
+        --END LOOP;
 	
 	prodID := :NEW.pid;
-	dbms_output.put_line(‘Product purchased: ‘ || prodID);
+	dbms_output.put_line('Product purchased: ' || prodID);
 	
-	—- need to insert into log
+	-- need to insert into log
 	
-	—-grabbing product purchased into productRecord
+	--grabbing product purchased into productRecord
 	select * into productRecord
 	from Products p
 	where p.pid = prodID;
 
-	—- need to update products qoh
+	-- need to update products qoh
 	update Products
 	set qoh = (productRecord.qoh - :NEW.qty)
 	where pid = prodID;
 
-	—-getting the updated product value
+	--getting the updated product value
 	select * into productRecord
 	from Products p
 	where p.pid = prodID;
 
-	—-checking if qoh<threshold cause then we have to request a new supply
+	--checking if qoh<threshold cause then we have to request a new supply
 	if (productRecord.qoh < productRecord.qoh_threshold) then
 		requestedQoh := productRecord.qoh_threshold - productRecord.qoh + 11;
-		dbms_output.put_line(‘the current qoh of ‘ || productRecord.name || ‘ is below the required threshold and new supply is required’);
+		dbms_output.put_line('the current qoh of ' || productRecord.name || ' is below the required threshold and new supply is required');
 
 		select count(*) into numSuppliers
 		from Suppliers s
 		where s.pid = prodID;
 
-		—-case that no suppliers supply this product
+		--case that no suppliers supply this product
 		if (numSuppliers < 1) then
 			raise no_suppliers;
 		end if;
 
-		—-finding the first supplier
+		--finding the first supplier
 		select sid into suppID
 		from Suppliers s
 		where s.pid = prodID and rownum = 1
-		order by sup# asc;
+		order by sid asc;
 
-		—-ordering supply
+		--ordering supply
 		insert into Suppliers
 		VALUES (sup_seq.NEXTVAL, prodID, suppID, SYSDATE, requestedQoh);
 	end if;
 
-	—- checking if customer last visit date is same as ptime and updates the customer
+	-- checking if customer last visit date is same as ptime and updates the customer
 	select c.cid, visits_made, last_visit_date
 	into custID, cVisitsMade, lastVisit
 	from Customers c
 	where :NEW.cid = cid;
 	
-	if (to_char(lastVisit, ‘DD-MON-YY’) != to_char(:NEW.ptime, ‘DD-MON-YY’)) then
+	if (to_char(lastVisit, 'DD-MON-YY') != to_char(:NEW.ptime, 'DD-MON-YY')) then
 		update Customers c
 		set c.visits_made = cVisitsMade + 1
 		where c.cid = custID;
@@ -97,10 +97,9 @@ begin
 exception
 
 	when no_suppliers then
-		raise_application_error(-20001, ‘no suppliers supply this product’);
+		raise_application_error(-20001, 'no suppliers supply this product');
 end;
 /
-
 
 create sequence sup_seq
         increment by 1
@@ -120,6 +119,7 @@ begin
         END LOOP;
 end;
 /
+
 create sequence log_seq
         increment by 1
         start with 1;
