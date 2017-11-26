@@ -1,0 +1,9 @@
+Team Members: Dominic, Brian Gracin, Shafkat Haque
+
+We use a repository on GitHub to collaborate on the project and maintained communication through text.
+
+Dominic:
+
+Brian:
+
+Shafkat: Did problem 7 and 9 for PL/SQL.
