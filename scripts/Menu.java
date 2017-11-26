@@ -249,16 +249,26 @@ public class Menu implements ActionListener{
                         btnAddPurchase.setEnabled(false);
                 }
             });
+            
+            //need to grab info from the text fields
         }
 
         @Override
         public void actionPerformed(ActionEvent event) {
                 // TODO Auto-generated method stub
                 if(btnAddPurchase.isEnabled() && event.getSource().equals(btnAddPurchase) ){
+              
                         try{
-
+                            CallableStatement cs = null;
+                            cs = conn.prepareCall("begin packge.add_purchase(?, ?, ?, ?); end;");
+                            cs.setString(1, eIDField.getText());
+                            cs.setString(2, pIDField.getText());
+                            cs.setString(3, cIDField.getText());
+                            cs.setString(4, qtyField.getText());
+                            cs.execute();
+                            JOptionPane.showMessageDialog(null, "Successfully added Purchase");
                         } catch(Exception e){
-
+                            JOptionPane.showMessageDialog(null, "Failed to add Purchase");
                         }
                 }
 
