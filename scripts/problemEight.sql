@@ -1,8 +1,19 @@
 create or replace procedure delete_purchase
 	(purNum IN Purchases.pur#%type) IS
+
+declare
+	--Variables for exception handling
+	null_purNum exception;
+
 begin
+	if (purNum is NULL) then
+		raise null_purNum;
 	delete from purchases
 	where pur# = purNum;
+
+exception
+	when null_purNum then
+		dbms_output.put_line('purNum is null')
 end;
 /
 
@@ -29,5 +40,8 @@ begin
 		set last_visit_date = v_current
 		where cid = :old.cid;
 	end if;
+
+exception
+
 end;
 /
