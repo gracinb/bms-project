@@ -260,7 +260,7 @@ public class Menu implements ActionListener{
               
                         try{
                             CallableStatement cs = null;
-                            cs = conn.prepareCall("begin packge.add_purchase(?, ?, ?, ?); end;");
+                            cs = conn.prepareCall("begin package.add_purchase(?, ?, ?, ?); end;");
                             cs.setString(1, eIDField.getText());
                             cs.setString(2, pIDField.getText());
                             cs.setString(3, cIDField.getText());
