@@ -43,7 +43,7 @@ public class Menu implements ActionListener{
         /**
          * Launch the application.
          */
-/*      public static void main(String[] args) {
+ /*     public static void main(String[] args) {
                 EventQueue.invokeLater(new Runnable() {
                         public void run() {
                                 try {
@@ -54,8 +54,8 @@ public class Menu implements ActionListener{
                                 }
                         }
                 });
-        }
-*/
+        }*/
+
         /**
          * Create the application.
          */
@@ -262,20 +262,26 @@ public class Menu implements ActionListener{
                         }
                 }
 
+                //Handle Purchase Return
                 if(btnDelete.isEnabled() && event.getSource().equals(btnDelete)){
                         try{
-                                //Call function to delete purchase
-                                JOptionPane.showMessageDialog(null, "Successfully deleted requested Purchase");
+                                String del = deletePurchaseField.getText(); 
+                                deletePurchase.main(conn, Integer.parseInt(del));
+                                String report = deletePurchase.getDelete();
+                                JOptionPane.showMessageDialog(null, report);
                         } catch(Exception e){
                                 JOptionPane.showMessageDialog(null, "Failed to delete Purchase");
                         }
                 }
 
+                //Handle Employees Sales Report
                 if(btnInfo.isEnabled() && event.getSource().equals(btnInfo)){
                         try{
-                                //Add code to get employee data/ Info
+                        		String text = employeeIDField.getText();
+                                monthlySales.main(conn, text);
+                                String report = monthlySales.getReport();
                                 JTextArea employeeInfo = new JTextArea();
-                                employeeInfo.setText("Place code for employee Info");
+                                employeeInfo.setText(report);
                                 employeeInfo.setEditable(false);
                                 JScrollPane scrollEmpInfo = new JScrollPane(employeeInfo);
                                 JOptionPane.showMessageDialog(null,scrollEmpInfo);
@@ -284,11 +290,14 @@ public class Menu implements ActionListener{
                         }
                 }
 
+                //Handle Purchase Savings
                 if(btnSavings.isEnabled() && event.getSource().equals(btnSavings)){
                         try{
-                                //Add code to get employee data/ Info
+                        		String save = purchaseField.getText();
+                        		purchaseSaving.main(conn, Integer.parseInt(save));
+                        		String report = purchaseSaving.getSaving();
                                 JTextArea employeeInfo = new JTextArea();
-                                employeeInfo.setText("Place code for employee Info");
+                                employeeInfo.setText(report);
                                 employeeInfo.setEditable(false);
                                 JScrollPane scrollEmpInfo = new JScrollPane(employeeInfo);
                                 JOptionPane.showMessageDialog(null,scrollEmpInfo);
@@ -297,6 +306,7 @@ public class Menu implements ActionListener{
                         }
                 }
 
+                //Handle Printing Tables
                 if(btnPrintTables.isEnabled() && event.getSource().equals(btnPrintTables)){
                         try{
                                 printTables.main(conn);
