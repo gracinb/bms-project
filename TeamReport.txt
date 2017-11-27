@@ -2,7 +2,7 @@ Team Members: Dominic, Brian Gracin, Shafkat Haque
 
 We use a repository on GitHub to collaborate on the project and maintained communication through text.
 
-Dominic:
+Dominic: Completed problems 1,2,6 and developed the GUI. I gained more knowledge in PL/SQL and the various components one is able to create as well as, interfacing with a Oracle database using a GUI.
 
 Brian:
 
