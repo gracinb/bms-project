@@ -1,6 +1,6 @@
 Team Members: Dominic, Brian Gracin, Shafkat Haque
 
-We use a repository on GitHub to collaborate on the project and maintained communication through text. We have met everytime we've had class for a few minutes either before or after class to talk about the progress with the project and if anyone was having trouble. 
+To accomplish the nine tasks and a GUI in a effecient manner; we divided the tasks among each other and used a repository on GitHub to collaborate on the project and maintained communication through text. We have met everytime we've had class for a few minutes either before or after class to talk about the progress with the project and if anyone was having trouble.
 
 Dominic: Completed problems 1,2,6 and developed the GUI. I gained more knowledge in PL/SQL and the various components one is able to create as well as, interfacing with a Oracle database using a GUI.
 
