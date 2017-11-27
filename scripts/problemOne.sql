@@ -9,6 +9,10 @@ create sequence pur_seq
         increment by 1
         start with 1;
 
+create sequence sup_seq
+        increment by 1
+        start with 1;
+
 create or replace trigger purchase_insert
         after insert on purchases
 	for each row
@@ -85,9 +89,7 @@ exception
 end;
 /
 
-create sequence sup_seq
-        increment by 1
-        start with 1;
+
 
 
 create or replace trigger supplies_insert
