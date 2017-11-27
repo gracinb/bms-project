@@ -40,10 +40,12 @@ create or replace package refcursor_package as
 	--procedure used to set the user name when user iterfaces with the UI
         procedure setUserName(userName in VARCHAR2);
 
+        --function to display amount saved on a given purchase
         function purchase_saving
         (purNum IN Purchases.pur#%type)
         return Purchases.total_price%type;
 
+        --procedure to display employees sales report
         procedure monthly_sale_activities
         (empId IN Employees.eid%type,
         sales_record OUT SYS_REFCURSOR);
@@ -61,6 +63,7 @@ create or replace package refcursor_package as
         c_id in Purchases.cid%type, 
         pur_qty in Purchases.qty%type);
 
+        --return (delete) a purchase
         procedure delete_purchase
         (purNum IN Purchases.pur#%type); 
 end;
@@ -167,11 +170,12 @@ create or replace package body refcursor_package as
                 return savings;
         end;
 
-        --Return information on employee sales per month
+        --send back information on employee sales per month
         procedure monthly_sale_activities
         (empId IN Employees.eid%type,
         sales_record OUT SYS_REFCURSOR) AS
         begin
+                --employee report stored in a reference cursor
                 OPEN sales_record FOR
                         select eid, 
                                 eName.name, 
@@ -320,10 +324,12 @@ create or replace package body refcursor_package as
                 null_purNum exception;
 
         begin
+                --check if param is NULL
                 if (purNum is NULL) then
                         raise null_purNum;
                 end if;
                 
+                --delete passed purchaase from table
                 delete from purchases
                 where pur# = purNum;
 
