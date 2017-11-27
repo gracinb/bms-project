@@ -1,33 +1,43 @@
 create or replace package refcursor_package as
         type ref_cursor is ref cursor;
 
+	--function for showing employees
         function showEmployees
         return ref_cursor;
 
+	--function for showing customers
         function showCustomers
         return ref_cursor;
 
+	--function for showing products
         function showProducts
         return ref_cursor;
 
+	--function for showing suppliers
         function showSuppliers
         return ref_cursor;
-
+	
+	--function for showing supplies
         function showSupplies
         return ref_cursor;
 
+	--function for showing discounts
         function showDiscounts
         return ref_cursor;
 
+	--function for showing purchases
         function showPurchases
         return ref_cursor;
 
+	--function for showing logs
         function showLogs
         return ref_cursor;
         
+	--function to retrieve user's login name if needed
         function getUserName
         return VARCHAR2;
 
+	--procedure used to set the user name when user iterfaces with the UI
         procedure setUserName(userName in VARCHAR2);
 
         function purchase_saving
@@ -42,6 +52,10 @@ create or replace package refcursor_package as
         c_name in Customers.name%type, 
         c_telephone# in Customers.telephone#%type);
 
+	--Objective: to add a purchase to the purchases table
+	--Usage: takes a employee id, product id, customer id and purchase quantity
+	-- Cursors are used to grab the referenced product, customer and to find
+	-- the right discount rate. Exceptions are taken care of as well
         procedure add_purchase(e_id in Purchases.eid%type, 
         p_id in Purchases.pid%type, 
         c_id in Purchases.cid%type, 
@@ -53,7 +67,7 @@ end;
 /
 
 create or replace package body refcursor_package as
-        userName VARCHAR2(12);
+        userName VARCHAR2(50):= USER;
 
         --@problemOne.sql
 
@@ -61,7 +75,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from employees;
+                        select * from employees order by eid asc;
                 return rc;
         end showEmployees;
 
@@ -69,7 +83,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from customers;
+                        select * from customers order by cid asc;
                 return rc;
 
         end showCustomers;
@@ -78,7 +92,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from products;
+                        select * from products order by pid asc;
                 return rc;
 
         end showProducts;
@@ -87,7 +101,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from discounts;
+                        select * from discounts order by discnt_category asc;
                 return rc;
 
         end showDiscounts;
@@ -96,7 +110,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from suppliers;
+                        select * from suppliers order by sid asc;
                 return rc;
 
         end showSuppliers;
@@ -105,7 +119,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from supplies;
+                        select * from supplies order by sup# asc;
                 return rc;
 
         end showSupplies;
@@ -114,7 +128,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from purchases;
+                        select * from purchases order by pur# asc;
                 return rc;
 
         end showPurchases;
@@ -123,18 +137,20 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from logs;
+                        select * from logs order by log# asc;
                 return rc;
 
         end showLogs;
         
+	--used to get the user name
         function getUserName
-        return VARCHAR2 is v_userName VARCHAR2(12);
+        return VARCHAR2 is v_userName VARCHAR2(50);
         begin
                 v_userName:= userName;
                 return v_userName;
         end getUserName;
-
+	
+	--used to set the user name of the user when interfacing
         procedure setUserName(userName in VARCHAR2) is
         begin
                 refcursor_package.userName := userName;

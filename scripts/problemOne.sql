@@ -9,6 +9,10 @@ create sequence pur_seq
         increment by 1
         start with 1;
 
+create sequence sup_seq
+        increment by 1
+        start with 1;
+
 create or replace trigger purchase_insert
         after insert on purchases
 	for each row
@@ -22,8 +26,6 @@ declare
 	cVisitsMade Customers.visits_made%type;
 	lastVisit Customers.last_visit_date%type;
 	no_suppliers exception;
-	
-
         --pNum NUMBER(3,0);
         --CURSOR pur_cursor is select pur# from purchases;
 begin
@@ -32,78 +34,62 @@ begin
         --        select pur_seq.NEXTVAL into pNum from dual;
         --        DBMS_OUTPUT.PUT_LINE(LPAD(to_char(pNum),3,'0'));
         --END LOOP;
-	
 	prodID := :NEW.pid;
 	dbms_output.put_line('Product purchased: ' || prodID);
-	
-	-- need to insert into log
-	
 	--grabbing product purchased into productRecord
 	select * into productRecord
 	from Products p
 	where p.pid = prodID;
-
 	-- need to update products qoh
 	update Products
 	set qoh = (productRecord.qoh - :NEW.qty)
 	where pid = prodID;
-
 	--getting the updated product value
 	select * into productRecord
 	from Products p
 	where p.pid = prodID;
-
 	--checking if qoh<threshold cause then we have to request a new supply
 	if (productRecord.qoh < productRecord.qoh_threshold) then
 		requestedQoh := productRecord.qoh_threshold - productRecord.qoh + 11;
 		dbms_output.put_line('the current qoh of ' || productRecord.name || ' is below the required threshold and new supply is required');
-
+		--getting the number of suppliers who supply this product since multiple suppliers can supply the same product
 		select count(*) into numSuppliers
-		from Suppliers s
+		from Supplies s
 		where s.pid = prodID;
-
-		--case that no suppliers supply this product
+		--case that no suppliers supply this product raise and error
 		if (numSuppliers < 1) then
 			raise no_suppliers;
 		end if;
-
-		--finding the first supplier
+		--finding the first supplier out of all the suppliers
 		select sid into suppID
-		from Suppliers s
+		from Supplies s
 		where s.pid = prodID and rownum = 1
 		order by sid asc;
-
 		--ordering supply
-		insert into Suppliers
+		insert into Supplies
 		VALUES (sup_seq.NEXTVAL, prodID, suppID, SYSDATE, requestedQoh);
 	end if;
-
-	-- checking if customer last visit date is same as ptime and updates the customer
+	-- finding the customer who made this purchase
 	select c.cid, visits_made, last_visit_date
 	into custID, cVisitsMade, lastVisit
 	from Customers c
 	where :NEW.cid = cid;
-	
+	--update last visit of the customer and increment visits made by 1
 	if (to_char(lastVisit, 'DD-MON-YY') != to_char(:NEW.ptime, 'DD-MON-YY')) then
 		update Customers c
 		set c.visits_made = cVisitsMade + 1
 		where c.cid = custID;
-		
 		update Customers c
 		set c.last_visit_date = :NEW.ptime
 		where c.cid = custID;
 	end if;
-
 exception
-
 	when no_suppliers then
 		raise_application_error(-20001, 'no suppliers supply this product');
 end;
 /
 
-create sequence sup_seq
-        increment by 1
-        start with 1;
+
 
 
 create or replace trigger supplies_insert

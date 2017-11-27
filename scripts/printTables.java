@@ -10,11 +10,15 @@ import java.util.Vector;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
+/*
+This class was designed to print the tables and store them into a table variable which allows the UI to retreive the tables easly
+*/
 public class printTables {
 
-                private static String tables = "";
+        private static String tables = "";
         public static void main (Connection conn) throws SQLException{
                 try{
+                        //Create two vectors one for calling the statements and one for getting the results
                         Vector<CallableStatement> callables = new Vector<CallableStatement>(8);
                         Vector<ResultSet> results = new Vector<ResultSet>(8);
 
@@ -27,7 +31,8 @@ public class printTables {
                         CallableStatement supplies = conn.prepareCall("begin ? := refcursor_package.showSupplies(); end;");
                         CallableStatement purchases = conn.prepareCall("begin ? := refcursor_package.showPurchases(); end;");
                         CallableStatement logs = conn.prepareCall("begin ? := refcursor_package.showLogs(); end;");
-
+                        
+                        //Adds the statements to be called to the Vector
                         callables.add(employees);
                         callables.add(customers);
                         callables.add(products);
@@ -37,6 +42,7 @@ public class printTables {
                         callables.add(purchases);
                         callables.add(logs);
 
+                        //Iterate over the vector and execute the callable statements and add the results to the vector
                         for( int counter = 0; counter < callables.size(); counter++){
                                 CallableStatement cs = (CallableStatement) callables.elementAt(counter);
                                 //register the out parameter (the first parameter)
@@ -46,6 +52,7 @@ public class printTables {
                                 ResultSet rs = (ResultSet)cs.getObject(1);
                                 results.add(rs);
                         }
+                        //Call the various prints to create the tables String
                         printEmployees((ResultSet)results.elementAt(0),employees);
                         printCustomers((ResultSet)results.elementAt(1),customers);
                         printProducts((ResultSet)results.elementAt(2),products);
@@ -54,8 +61,6 @@ public class printTables {
                         printSupplies((ResultSet)results.elementAt(5),supplies);
                         printPurchases((ResultSet)results.elementAt(6),purchases);
                         printLogs((ResultSet)results.elementAt(7),logs);
-
-                        conn.close();
                 }
                 catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
@@ -189,7 +194,8 @@ public class printTables {
                 catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
-
+        
+        //getter for GUI to grab the tables and print them
         public static String getTables(){
                 return tables;
         }

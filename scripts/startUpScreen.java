@@ -82,7 +82,7 @@ public class startUpScreen implements ActionListener{
                 } else{
                         btnConnect.setEnabled(true);
                 }
-
+                // Add listener to the user name text field and update the button if both the user name and password fields are filled
                 textField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
@@ -92,7 +92,7 @@ public class startUpScreen implements ActionListener{
                         btnConnect.setEnabled(false);
                 }
             });
-
+                //add listener for the password field and update button if both fields have been filled
                 passwordField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
@@ -111,6 +111,7 @@ public class startUpScreen implements ActionListener{
                 lblPassword.setBounds(80, 115, 69, 16);
                 frame.getContentPane().add(lblPassword);
         }
+        // When the connect button is pressed attempt to connect and display an error message if you cannot
         public void actionPerformed(ActionEvent event){
                 if(btnConnect.isEnabled() && event.getSource().equals(btnConnect)){
                         try{
@@ -125,7 +126,7 @@ public class startUpScreen implements ActionListener{
                                 frame.setVisible(false);
 
                         } catch(Exception e){
-                                JOptionPane.showMessageDialog(null, e);
+                                JOptionPane.showMessageDialog(null, "Connection failed. Please check your user name or password");
                         }
                 }
         }
