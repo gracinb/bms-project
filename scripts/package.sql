@@ -1,33 +1,43 @@
 create or replace package refcursor_package as
         type ref_cursor is ref cursor;
 
+	--function for showing employees
         function showEmployees
         return ref_cursor;
 
+	--function for showing customers
         function showCustomers
         return ref_cursor;
 
+	--function for showing products
         function showProducts
         return ref_cursor;
 
+	--function for showing suppliers
         function showSuppliers
         return ref_cursor;
-
+	
+	--function for showing supplies
         function showSupplies
         return ref_cursor;
 
+	--function for showing discounts
         function showDiscounts
         return ref_cursor;
 
+	--function for showing purchases
         function showPurchases
         return ref_cursor;
 
+	--function for showing logs
         function showLogs
         return ref_cursor;
         
+	--function to retrieve user's login name if needed
         function getUserName
         return VARCHAR2;
 
+	--procedure used to set the user name when user iterfaces with the UI
         procedure setUserName(userName in VARCHAR2);
 
         function purchase_saving
@@ -65,7 +75,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from employees;
+                        select * from employees ;
                 return rc;
         end showEmployees;
 
@@ -132,13 +142,15 @@ create or replace package body refcursor_package as
 
         end showLogs;
         
+	--used to get the user name
         function getUserName
         return VARCHAR2 is v_userName VARCHAR2(12);
         begin
                 v_userName:= userName;
                 return v_userName;
         end getUserName;
-
+	
+	--used to set the user name of the user when interfacing
         procedure setUserName(userName in VARCHAR2) is
         begin
                 refcursor_package.userName := userName;
