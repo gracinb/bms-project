@@ -67,7 +67,7 @@ end;
 /
 
 create or replace package body refcursor_package as
-        userName VARCHAR2(12);
+        userName VARCHAR2 := USER;
 
         --@problemOne.sql
 
