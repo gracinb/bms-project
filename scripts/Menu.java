@@ -23,7 +23,8 @@ import oracle.jdbc.*;
 
 
 public class Menu implements ActionListener{
-
+        
+        //Variable Declarations
         private Connection conn;
         private JFrame frame;
         private JTextField deletePurchaseField;
@@ -57,7 +58,7 @@ public class Menu implements ActionListener{
         }
 */
         /**
-         * Create the application.
+         * Create the Menu and continue the already established connection.
          */
         public Menu(Connection conn) {
                 this.conn = conn;
@@ -190,7 +191,7 @@ public class Menu implements ActionListener{
                 createUpdater(btnSavings, purchaseField);
                 updaterForAddPur();
         }
-
+        //General purpose function to add listeners and checks to three specific fields and buttons
         private void createUpdater(final JButton button, final JTextField field){
 
                 field.addKeyListener(new KeyAdapter() {
@@ -203,7 +204,7 @@ public class Menu implements ActionListener{
                 }
             });
         }
-
+        //General function to add key listeners to each of the four textfields required and check to see if the button should be enabled
         private void updaterForAddPur(){
 
                 eIDField.addKeyListener(new KeyAdapter() {
@@ -253,9 +254,10 @@ public class Menu implements ActionListener{
             //need to grab info from the text fields
         }
 
+        //Event driven function
         @Override
         public void actionPerformed(ActionEvent event) {
-                // TODO Auto-generated method stub
+                //Check to see if the add to purchase button was clicked and if so execute the add to purchase PL/SQL function/procedure
                 if(btnAddPurchase.isEnabled() && event.getSource().equals(btnAddPurchase) ){
               
                         try{
@@ -271,7 +273,7 @@ public class Menu implements ActionListener{
                             JOptionPane.showMessageDialog(null, "Failed to add Purchase");
                         }
                 }
-
+                //check to see if the button to delete a purchase has been pressed and if so delete the purchase
                 if(btnDelete.isEnabled() && event.getSource().equals(btnDelete)){
                         try{
                                 //Call function to delete purchase
@@ -280,7 +282,8 @@ public class Menu implements ActionListener{
                                 JOptionPane.showMessageDialog(null, "Failed to delete Purchase");
                         }
                 }
-
+                
+                //Check to see if the info button was pushed and if so attempt to display the employee info
                 if(btnInfo.isEnabled() && event.getSource().equals(btnInfo)){
                         try{
                                 //Add code to get employee data/ Info
@@ -293,7 +296,8 @@ public class Menu implements ActionListener{
                                 JOptionPane.showMessageDialog(null, "Failed to retrieve Info");
                         }
                 }
-
+                
+                //Check to see if the button savings was pressed and if so display the employee data/info
                 if(btnSavings.isEnabled() && event.getSource().equals(btnSavings)){
                         try{
                                 //Add code to get employee data/ Info
@@ -307,6 +311,7 @@ public class Menu implements ActionListener{
                         }
                 }
 
+                //Check to see if the display tables button had been pressed and if so display the tables in a scrollable window
                 if(btnPrintTables.isEnabled() && event.getSource().equals(btnPrintTables)){
                         try{
                                 printTables.main(conn);
