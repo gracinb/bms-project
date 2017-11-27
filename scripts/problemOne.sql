@@ -60,7 +60,7 @@ begin
 
 		--getting the number of suppliers who supply this product since multiple suppliers can supply the same product
 		select count(*) into numSuppliers
-		from Suppliers s
+		from Supplies s
 		where s.pid = prodID;
 
 		--case that no suppliers supply this product raise and error
@@ -70,12 +70,12 @@ begin
 
 		--finding the first supplier out of all the suppliers
 		select sid into suppID
-		from Suppliers s
+		from Supplies s
 		where s.pid = prodID and rownum = 1
 		order by sid asc;
 
 		--ordering supply
-		insert into Suppliers
+		insert into Supplies
 		VALUES (sup_seq.NEXTVAL, prodID, suppID, SYSDATE, requestedQoh);
 	end if;
 
