@@ -75,7 +75,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from employees ;
+                        select * from employees order by eid asc;
                 return rc;
         end showEmployees;
 
@@ -83,7 +83,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from customers;
+                        select * from customers order by cid asc;
                 return rc;
 
         end showCustomers;
@@ -92,7 +92,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from products;
+                        select * from products order by pid asc;
                 return rc;
 
         end showProducts;
@@ -101,7 +101,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from discounts;
+                        select * from discounts order by discnt_category asc;
                 return rc;
 
         end showDiscounts;
@@ -110,7 +110,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from suppliers;
+                        select * from suppliers order by sid asc;
                 return rc;
 
         end showSuppliers;
@@ -119,7 +119,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from supplies;
+                        select * from supplies order by sup# asc;
                 return rc;
 
         end showSupplies;
@@ -128,7 +128,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from purchases;
+                        select * from purchases order by pur# asc;
                 return rc;
 
         end showPurchases;
@@ -137,7 +137,7 @@ create or replace package body refcursor_package as
         return ref_cursor is rc ref_cursor;
         begin
                 open rc for
-                        select * from logs;
+                        select * from logs order by log# asc;
                 return rc;
 
         end showLogs;
