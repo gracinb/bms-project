@@ -67,7 +67,7 @@ end;
 /
 
 create or replace package body refcursor_package as
-        userName VARCHAR2 := USER;
+        userName VARCHAR2(50):= USER;
 
         --@problemOne.sql
 
@@ -144,7 +144,7 @@ create or replace package body refcursor_package as
         
 	--used to get the user name
         function getUserName
-        return VARCHAR2 is v_userName VARCHAR2;
+        return VARCHAR2 is v_userName VARCHAR2(50);
         begin
                 v_userName:= userName;
                 return v_userName;
