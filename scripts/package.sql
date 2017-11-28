@@ -1,74 +1,3 @@
-create or replace package refcursor_package as
-        type ref_cursor is ref cursor;
-
-	--function for showing employees
-        function showEmployees
-        return ref_cursor;
-
-	--function for showing customers
-        function showCustomers
-        return ref_cursor;
-
-	--function for showing products
-        function showProducts
-        return ref_cursor;
-
-	--function for showing suppliers
-        function showSuppliers
-        return ref_cursor;
-	
-	--function for showing supplies
-        function showSupplies
-        return ref_cursor;
-
-	--function for showing discounts
-        function showDiscounts
-        return ref_cursor;
-
-	--function for showing purchases
-        function showPurchases
-        return ref_cursor;
-
-	--function for showing logs
-        function showLogs
-        return ref_cursor;
-        
-	--function to retrieve user's login name if needed
-        function getUserName
-        return VARCHAR2;
-
-	--procedure used to set the user name when user iterfaces with the UI
-        procedure setUserName(userName in VARCHAR2);
-
-        --function to display amount saved on a given purchase
-        function purchase_saving
-        (purNum IN Purchases.pur#%type)
-        return Purchases.total_price%type;
-
-        --procedure to display employees sales report
-        procedure monthly_sale_activities
-        (empId IN Employees.eid%type,
-        sales_record OUT SYS_REFCURSOR);
-
-        procedure add_customer(c_id in Customers.cid%type, 
-        c_name in Customers.name%type, 
-        c_telephone# in Customers.telephone#%type);
-
-	--Objective: to add a purchase to the purchases table
-	--Usage: takes a employee id, product id, customer id and purchase quantity
-	-- Cursors are used to grab the referenced product, customer and to find
-	-- the right discount rate. Exceptions are taken care of as well
-        procedure add_purchase(e_id in Purchases.eid%type, 
-        p_id in Purchases.pid%type, 
-        c_id in Purchases.cid%type, 
-        pur_qty in Purchases.qty%type);
-
-        --return (delete) a purchase
-        procedure delete_purchase
-        (purNum IN Purchases.pur#%type); 
-end;
-/
-
 create or replace package body refcursor_package as
         userName VARCHAR2(50):= USER;
 
@@ -197,7 +126,7 @@ create or replace package body refcursor_package as
         begin
                 --check if param is NULL
                 if (empId is NULL) then
-                        raise null_empId
+                        raise null_empId;
                 end if;
 
                 --employee report stored in a reference cursor
