@@ -79,44 +79,12 @@ exception
 end;
 /
 
-create or replace trigger supplies_insert
-        after insert on supplies
-declare
-        sNum NUMBER(4,0);
-        CURSOR sup_cursor is select sup# from supplies;
-begin
-        FOR sup# in sup_cursor
-        LOOP
-                select sup_seq.NEXTVAL into sNum from dual;
-                DBMS_OUTPUT.PUT_LINE(LPAD(to_char(sNum),4,'0'));
-        END LOOP;
-end;
-/
-
-create or replace trigger log_insert
-        after insert on logs
-declare
-        lNum NUMBER(5,0);
-        CURSOR log_cursor is select log# from logs;
-begin
-        FOR log# in log_cursor
-        LOOP
-                select log_seq.NEXTVAL into lNum from dual;
-                DBMS_OUTPUT.PUT_LINE(LPAD(to_char(lNum),5,'0'));
-        END LOOP;
-end;
-/
-
 --Trigger to insert a new log tuple when a customer is added.
 create or replace trigger customerInsert
-        after insert on customers
+        before insert on customers
         FOR EACH ROW
-
-        declare
-                logVal Number;
         begin
-                select count(*) into logVal from logs;
-                insert into logs VALUES (logVal+1,
+                insert into logs VALUES (log_seq.NEXTVAL,
                                         refcursor_package.getUserName(),
                                         'insert',
                                         SYSDATE(),
@@ -129,13 +97,8 @@ create or replace trigger customerInsert
 create or replace trigger customerUpdate
         after update of last_visit_date on customers
         FOR EACH ROW
-
-        declare
-                logVal Number;
-
         begin
-                select count(*) into logVal from logs;
-                insert into logs VALUES(logVal+1,
+                insert into logs VALUES(log_seq.NEXTVAL,
                                         refcursor_package.getUserName(),
                                         'update',
                                         SYSDATE(),
@@ -145,14 +108,10 @@ create or replace trigger customerUpdate
 /
 --trigger to occur when a new purchases has been added to the table and inserts a new log
 create or replace trigger purchasesInsert
-        after insert on purchases
+        before insert on purchases
         FOR EACH ROW
-
-        declare
-                logVal Number;
         begin
-                select count(*) into logVal from logs;
-                insert into logs VALUES(logVal + 1,
+                insert into logs VALUES(log_seq.NEXTVAL,
                                         refcursor_package.getUserName(),
                                         'insert',
                                         SYSDATE(),
@@ -164,13 +123,8 @@ create or replace trigger purchasesInsert
 create or replace trigger productsUpdate
         after update of qoh on products
         FOR EACH ROW
-
-        declare
-                logVal Number;
-
         begin
-                select count(*) into logVal from logs;
-                insert into logs VALUES(logVal + 1,
+                insert into logs VALUES(log_seq.NEXTVAL,
                                         refcursor_package.getUserName(),
                                         'update',
                                         SYSDATE(),
@@ -180,14 +134,10 @@ create or replace trigger productsUpdate
 /
 --create or replace trigger and inserts a new tuple into the log table when an insertion onto supplies has occurred
 create or replace trigger suppliesInsert
-        after insert on supplies
+        before insert on supplies
         FOR EACH ROW
-
-        declare
-                logVal Number;
         begin
-                select count(*) into logVal from logs;
-                insert into logs VALUES(logVal + 1,
+                insert into logs VALUES(log_seq.NEXTVAL,
                                         refcursor_package.getUserName(),
                                         'insert',
                                         SYSDATE(),
