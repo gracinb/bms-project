@@ -163,11 +163,29 @@ create or replace package body refcursor_package as
         function purchase_saving
         (purNum IN Purchases.pur#%type)
         return Purchases.total_price%type IS savings Purchases.total_price%type;
+                --Variables for exception handling
+                null_purNum exception;
+                null_savings exception;
         begin
+                --check if param is NULL
+                if (purNum is NULL) then
+                        raise null_purNum;
+                end if;
+
                 select original_price * qty - total_price saving into savings
                 from Purchases pu, Products pr
                 where purNum = pu.pur# and pu.pid = pr.pid;
+
+                if (savings is NULL) then
+                        raise null_savings;
+                end if;
+
                 return savings;
+        exception
+                when null_purNum then
+                        dbms_output.put_line('purNum is null');
+                when null_savings then
+                        dbms_output.put_line('No savings info found');
         end;
 
         --send back information on employee sales per month

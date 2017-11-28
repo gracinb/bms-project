@@ -260,18 +260,17 @@ public class Menu implements ActionListener{
                 //Check to see if the add to purchase button was clicked and if so execute the add to purchase PL/SQL function/procedure
                 if(btnAddPurchase.isEnabled() && event.getSource().equals(btnAddPurchase) ){
               
-                        try{
-                            CallableStatement cs = null;
-                            cs = conn.prepareCall("begin package.add_purchase(?, ?, ?, ?); end;");
-                            cs.setString(1, eIDField.getText());
-                            cs.setString(2, pIDField.getText());
-                            cs.setString(3, cIDField.getText());
-                            cs.setString(4, qtyField.getText());
-                            cs.execute();
-                            JOptionPane.showMessageDialog(null, "Successfully added Purchase");
-                        } catch(Exception e){
-                            JOptionPane.showMessageDialog(null, "Failed to add Purchase");
-                        }
+                	try{
+                        String eID = eIDField.getText();
+                        String pID = pIDField.getText();
+                        String cID = cIDField.getText();
+                        Integer qty = Integer.parseInt(qtyField.getText());
+                        addPurchase.main(conn, eID, pID, cID, qty);
+                        String report = addPurchase.getAdd();
+                        JOptionPane.showMessageDialog(null, report);
+                    } catch(Exception e){
+                        JOptionPane.showMessageDialog(null, "Failed to add Purchase");
+                    }
                 }
                 
                 //check to see if the button to delete a purchase has been pressed and if so delete the purchase

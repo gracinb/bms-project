@@ -16,7 +16,10 @@ public class deletePurchase {
 	 private static String delete = "";
      public static void main (Connection conn, Integer pNum) throws SQLException{
          try{
-        	 //Check if valid pur# sent in for deletion
+        	 //Flush string
+        	 delete = "";
+        	 
+        	 //Select with given pur#
         	 Integer purNum = 0;
         	 PreparedStatement select = conn.prepareCall("SELECT pur# from Purchases where pur# = :1");
         	 select.setInt(1, pNum);        	 
@@ -24,7 +27,8 @@ public class deletePurchase {
         	 
         	//Prepare to call stored function
         	 CallableStatement cs = conn.prepareCall("begin refcursor_package.delete_purchase(:1); end;");
-        	 
+        	
+        	//Check if valid pur# sent in for deletion
         	 while(rset.next()) {
         		 purNum = rset.getInt("PUR#");
         	 }
@@ -37,12 +41,12 @@ public class deletePurchase {
 	        	 cs.execute();
 	        	 delete = "Purchase Returned " + pNum;
         	 } else {
-        		 delete = "Invalid Purchase # " + purNum + " " + pNum;
+        		 delete = "Invalid Purchase ID";
         	 }
         	 
+        	 rset.close();
         	 select.close();
         	 cs.close();
-             conn.close();
          }
          catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
          catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}

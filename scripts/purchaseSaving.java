@@ -17,23 +17,36 @@ public class purchaseSaving {
 	 private static String saving = "";
      public static void main (Connection conn, Integer pNum) throws SQLException{
          try{
+        	 //Flush string
+        	 saving = "";
+        	 
+        	//Select with given pur#
+			PreparedStatement select = conn.prepareCall("SELECT pur# from Purchases where pur# = :1");
+			select.setInt(1, pNum);        	 
+			ResultSet rset = select.executeQuery();
+        	 
         	//Prepare to call stored function
-        	CallableStatement cs = conn.prepareCall("begin :1 := refcursor_package.purchase_saving(:2); end;"); 
+        	CallableStatement cs = conn.prepareCall("begin :1 := refcursor_package.purchase_saving(:2); end;");
         	//Register the out parameter
         	cs.registerOutParameter(1, Types.DOUBLE);
         	//Register the input parameter
         	cs.setInt(2, pNum);
-        	 
-        	//Execute and retrieve result
-         	cs.execute();
-         	Double rs = cs.getDouble(1);
-         	 
-         	//Set string to output result
-         	saving += "Savings this purchase \n";
-         	saving += rs + "\n";
+        	
+        	//Check if valid pur# sent in
+        	if (rset.next()) {
+        		//Execute and retrieve result
+             	cs.execute();
+             	Double rs = cs.getDouble(1);
+             	 
+             	//Set string to output result
+             	saving += "Savings this purchase \n";
+             	saving += rs + "\n";
+        	} else {
+        		saving += "Invalid purchase ID";
+        	}
          	
+        	select.close();
         	cs.close();
-            conn.close();
          }	
          catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
          catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}

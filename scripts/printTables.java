@@ -18,6 +18,9 @@ public class printTables {
         private static String tables = "";
         public static void main (Connection conn) throws SQLException{
                 try{
+	                	//Flush string
+	            		tables = "";
+                	
                         //Create two vectors one for calling the statements and one for getting the results
                         Vector<CallableStatement> callables = new Vector<CallableStatement>(8);
                         Vector<ResultSet> results = new Vector<ResultSet>(8);
