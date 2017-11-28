@@ -7,11 +7,11 @@ drop sequence log_seq;
 
 create sequence pur_seq
         increment by 1
-        start with 100001;
+        start with 100015;
 
 create sequence sup_seq
         increment by 1
-        start with 1;
+        start with 1010;
 
 create sequence log_seq
         increment by 1
