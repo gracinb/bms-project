@@ -192,7 +192,14 @@ create or replace package body refcursor_package as
         procedure monthly_sale_activities
         (empId IN Employees.eid%type,
         sales_record OUT SYS_REFCURSOR) AS
+                --Variables for exception handling
+                null_empId exception;
         begin
+                --check if param is NULL
+                if (empId is NULL) then
+                        raise null_empId
+                end if;
+
                 --employee report stored in a reference cursor
                 OPEN sales_record FOR
                         select eid, 
@@ -204,6 +211,9 @@ create or replace package body refcursor_package as
                         from purchases, (select name from employees where eid = empId) eName
                         where eid = empId
                         group by to_char(ptime, 'MON YYYY'), eid, eName.name;
+        exception
+                when null_empId then
+                        dbms_output.put_line('empId is null');
         end;
 
         procedure add_customer(c_id in Customers.cid%type, 
