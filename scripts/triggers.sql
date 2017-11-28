@@ -135,8 +135,5 @@ begin
 		set last_visit_date = v_current
 		where cid = :old.cid;
 	end if;
-
-exception
-
 end;
 /
