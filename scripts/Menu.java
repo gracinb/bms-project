@@ -23,7 +23,7 @@ import oracle.jdbc.*;
 
 
 public class Menu implements ActionListener{
-        
+
         //Variable Declarations
         private Connection conn;
         private JFrame frame;
@@ -34,13 +34,16 @@ public class Menu implements ActionListener{
         private JTextField cIDField;
         private JTextField qtyField;
         private JTextField pIDField;
+        private JTextField addCustomerField;
+        private JTextField addCustomerNameField;
+        private JTextField addCustomerTeleField;
         private JButton btnDelete;
         private JButton btnInfo;
         private JButton btnAddPurchase;
         private JButton btnSavings;
         private JButton btnPrintTables;
-
-
+        private JButton btnAddCustomer;
+        
         /**
          * Launch the application.
          */
@@ -58,7 +61,8 @@ public class Menu implements ActionListener{
         }*/
 
         /**
-         * Create the Menu and continue the already established connection.
+         * Create the Menu and continue the already established
+connection.
          */
         public Menu(Connection conn) {
                 this.conn = conn;
@@ -70,7 +74,7 @@ public class Menu implements ActionListener{
          */
         private void initialize() {
                 frame = new JFrame();
-                frame.setBounds(100, 100, 630, 360);
+                frame.setBounds(100, 100, 731, 398);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.getContentPane().setLayout(null);
                 frame.setVisible(true);
@@ -113,11 +117,11 @@ public class Menu implements ActionListener{
                 btnInfo.addActionListener(this);
 
                 JLabel lblAddToPurchase = new JLabel("Add to Purchase");
-                lblAddToPurchase.setBounds(239, 189, 97, 16);
+                lblAddToPurchase.setBounds(130, 223, 97, 16);
                 frame.getContentPane().add(lblAddToPurchase);
 
                 btnAddPurchase = new JButton("Add Purchase");
-                btnAddPurchase.setBounds(242, 294, 115, 25);
+                btnAddPurchase.setBounds(112, 327, 115, 25);
                 frame.getContentPane().add(btnAddPurchase);
                 btnAddPurchase.setEnabled(false);
                 btnAddPurchase.addActionListener(this);
@@ -130,7 +134,6 @@ public class Menu implements ActionListener{
                 deletePurchaseField.setBounds(425, 131, 135, 28);
                 frame.getContentPane().add(deletePurchaseField);
                 deletePurchaseField.setColumns(10);
-
                 JLabel lblPur_1 = new JLabel("Pur#");
                 lblPur_1.setBounds(389, 137, 56, 16);
                 frame.getContentPane().add(lblPur_1);
@@ -142,58 +145,129 @@ public class Menu implements ActionListener{
                 btnDelete.addActionListener(this);
 
                 JLabel lblEId = new JLabel("E ID");
-                lblEId.setBounds(120, 222, 56, 16);
+                lblEId.setBounds(12, 258, 56, 16);
                 frame.getContentPane().add(lblEId);
 
                 JLabel lblCId = new JLabel("C ID");
-                lblCId.setBounds(120, 260, 44, 16);
+                lblCId.setBounds(12, 293, 44, 16);
                 frame.getContentPane().add(lblCId);
 
                 purchaseField = new JTextField();
                 purchaseField.setColumns(10);
                 purchaseField.setBounds(47, 130, 135, 28);
                 frame.getContentPane().add(purchaseField);
-
                 employeeIDField = new JTextField();
                 employeeIDField.setColumns(10);
                 employeeIDField.setBounds(425, 31, 126, 28);
                 frame.getContentPane().add(employeeIDField);
-                                eIDField = new JTextField();
+
+                eIDField = new JTextField();
                 eIDField.setColumns(10);
-                eIDField.setBounds(156, 216, 97, 28);
+                eIDField.setBounds(49, 252, 97, 28);
                 frame.getContentPane().add(eIDField);
 
                 cIDField = new JTextField();
                 cIDField.setColumns(10);
-                cIDField.setBounds(156, 254, 97, 28);
+                cIDField.setBounds(49, 286, 97, 28);
                 frame.getContentPane().add(cIDField);
 
                 qtyField = new JTextField();
                 qtyField.setColumns(10);
-                qtyField.setBounds(348, 253, 97, 28);
+                qtyField.setBounds(215, 287, 97, 28);
                 frame.getContentPane().add(qtyField);
 
                 pIDField = new JTextField();
                 pIDField.setColumns(10);
-                pIDField.setBounds(348, 216, 97, 28);
+                pIDField.setBounds(215, 252, 97, 28);
                 frame.getContentPane().add(pIDField);
 
                 JLabel lblPId = new JLabel("P ID");
-                lblPId.setBounds(311, 222, 56, 16);
+                lblPId.setBounds(181, 258, 56, 16);
                 frame.getContentPane().add(lblPId);
 
                 JLabel lblQty = new JLabel("Qty");
-                lblQty.setBounds(311, 260, 56, 16);
+                lblQty.setBounds(181, 293, 56, 16);
                 frame.getContentPane().add(lblQty);
+                JLabel lblAddCustomer = new JLabel("Add Customer");
+                lblAddCustomer.setBounds(519, 223, 88, 16);
+                frame.getContentPane().add(lblAddCustomer);
 
+                addCustomerField = new JTextField();
+                addCustomerField.setColumns(10);
+                addCustomerField.setBounds(435, 246, 97, 28);
+                frame.getContentPane().add(addCustomerField);
+
+                JLabel label = new JLabel("C ID");
+                label.setBounds(401, 252, 44, 16);
+                frame.getContentPane().add(label);
+
+                addCustomerNameField = new JTextField();
+                addCustomerNameField.setColumns(10);
+                addCustomerNameField.setBounds(582, 246, 97, 28);
+                frame.getContentPane().add(addCustomerNameField);
+
+                addCustomerTeleField = new JTextField();
+                addCustomerTeleField.setColumns(10);
+                addCustomerTeleField.setBounds(505, 287, 97, 28);
+                frame.getContentPane().add(addCustomerTeleField);
+
+                btnAddCustomer = new JButton("Add Customer");
+                btnAddCustomer.addActionListener(this);
+                btnAddCustomer.setBounds(505, 327, 121, 25);
+                frame.getContentPane().add(btnAddCustomer);
+                btnAddCustomer.setEnabled(false);
+
+                JLabel lblName = new JLabel("Name");
+                lblName.setBounds(540, 252, 44, 16);
+                frame.getContentPane().add(lblName);
+
+                JLabel lblTelephone = new JLabel("Telephone #");
+                lblTelephone.setBounds(425, 293, 92, 16);
+                frame.getContentPane().add(lblTelephone);
+                updateForCustomer();
                 createUpdater(btnDelete,deletePurchaseField);
                 createUpdater(btnInfo,employeeIDField );
                 createUpdater(btnSavings, purchaseField);
                 updaterForAddPur();
         }
         //General purpose function to add listeners and checks to three specific fields and buttons
-        private void createUpdater(final JButton button, final JTextField field){
+        private void updateForCustomer(){
+                addCustomerField.addKeyListener(new KeyAdapter() {
+                public void keyReleased(KeyEvent e) {
+                    super.keyReleased(e);
+                    if(addCustomerField.getText().length() > 0 && addCustomerNameField.getText().length() > 0
+                                && addCustomerTeleField.getText().length() > 0)
+                        btnAddCustomer.setEnabled(true);
+                    else
+                        btnAddCustomer.setEnabled(false);
+                }
+            });
 
+                addCustomerNameField.addKeyListener(new KeyAdapter() {
+                public void keyReleased(KeyEvent e) {
+                    super.keyReleased(e);
+                    if(addCustomerField.getText().length() > 0 && addCustomerNameField.getText().length() > 0
+                                && addCustomerTeleField.getText().length() > 0)
+                        btnAddCustomer.setEnabled(true);
+                    else
+                        btnAddCustomer.setEnabled(false);
+                }
+            });
+
+                addCustomerTeleField.addKeyListener(new KeyAdapter() {
+                public void keyReleased(KeyEvent e) {
+                    super.keyReleased(e);
+                    if(addCustomerField.getText().length() > 0 && addCustomerNameField.getText().length() > 0
+                                && addCustomerTeleField.getText().length() > 0)
+                        btnAddCustomer.setEnabled(true);
+                    else
+                        btnAddCustomer.setEnabled(false);
+                }
+            });
+        }
+
+        //General purpose function to add listeners and checks to three specific fields and buttons
+        private void createUpdater(final JButton button, final JTextField field){
                 field.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
@@ -206,12 +280,10 @@ public class Menu implements ActionListener{
         }
         //General function to add key listeners to each of the four textfields required and check to see if the button should be enabled
         private void updaterForAddPur(){
-
                 eIDField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
-                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0
-                                && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
+                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0  && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
                         btnAddPurchase.setEnabled(true);
                     else
                         btnAddPurchase.setEnabled(false);
@@ -221,8 +293,7 @@ public class Menu implements ActionListener{
                 pIDField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
-                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0
-                                && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
+                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0 && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
                         btnAddPurchase.setEnabled(true);
                     else
                         btnAddPurchase.setEnabled(false);
@@ -232,8 +303,7 @@ public class Menu implements ActionListener{
                 cIDField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
-                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0
-                                && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
+                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0 && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
                         btnAddPurchase.setEnabled(true);
                     else
                         btnAddPurchase.setEnabled(false);
@@ -243,24 +313,35 @@ public class Menu implements ActionListener{
                 qtyField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
                     super.keyReleased(e);
-                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0
-                                && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
+                    if(eIDField.getText().length() > 0 && pIDField.getText().length() > 0 && cIDField.getText().length() > 0 && qtyField.getText().length() > 0)
                         btnAddPurchase.setEnabled(true);
                     else
                         btnAddPurchase.setEnabled(false);
                 }
             });
-            
+
             //need to grab info from the text fields
         }
 
         //Event driven function
         @Override
         public void actionPerformed(ActionEvent event) {
-                //Check to see if the add to purchase button was clicked and if so execute the add to purchase PL/SQL function/procedure
+                if(btnAddCustomer.isEnabled() && event.getSource().equals(btnAddCustomer)){
+                                String cID = addCustomerField.getText();
+                                String cName = addCustomerNameField.getText();
+                                String cTelephone = addCustomerTeleField.getText();
+                                try {
+                                        addCustomer.main(conn,cID,cName,cTelephone);
+                                        JOptionPane.showMessageDialog(null, "Successfully added Customer");
+                                } catch (SQLException e) {
+                                        // TODO Auto-generated catch block
+                                        JOptionPane.showMessageDialog(null, "Failed to add Customer");
+                                }
+                }
+  //Check to see if the add to purchase button was clicked and if so execute the add to purchase PL/SQL function/procedure
                 if(btnAddPurchase.isEnabled() && event.getSource().equals(btnAddPurchase) ){
-              
-                	try{
+
+                try{
                         String eID = eIDField.getText();
                         String pID = pIDField.getText();
                         String cID = cIDField.getText();
@@ -272,29 +353,30 @@ public class Menu implements ActionListener{
                         JOptionPane.showMessageDialog(null, "Failed to add Purchase");
                     }
                 }
-                
+
                 //check to see if the button to delete a purchase has been pressed and if so delete the purchase
                 if(btnDelete.isEnabled() && event.getSource().equals(btnDelete)){
                         try{
-                                String del = deletePurchaseField.getText(); 
-                                deletePurchase.main(conn, Integer.parseInt(del));
+                                String del = deletePurchaseField.getText();
+                                deletePurchase.main(conn,Integer.parseInt(del));
                                 String report = deletePurchase.getDelete();
                                 JOptionPane.showMessageDialog(null, report);
                         } catch(Exception e){
-                                JOptionPane.showMessageDialog(null, "Failed to delete Purchase");
+                                JOptionPane.showMessageDialog(null,"Failed to delete Purchase");
                         }
                 }
-                
+
                 //Check to see if the info button was pushed and if so attempt to display the employee info
                 if(btnInfo.isEnabled() && event.getSource().equals(btnInfo)){
                         try{
-                        		String text = employeeIDField.getText();
+                                String text = employeeIDField.getText();
                                 monthlySales.main(conn, text);
                                 String report = monthlySales.getReport();
                                 JTextArea employeeInfo = new JTextArea();
                                 employeeInfo.setText(report);
                                 employeeInfo.setEditable(false);
                                 JScrollPane scrollEmpInfo = new JScrollPane(employeeInfo);
+
                                 JOptionPane.showMessageDialog(null,scrollEmpInfo);
                         } catch(Exception e){
                                 JOptionPane.showMessageDialog(null, "Failed to retrieve Info");
@@ -304,13 +386,14 @@ public class Menu implements ActionListener{
                 //Check to see if the button savings was pressed and if so display the employee data/info
                 if(btnSavings.isEnabled() && event.getSource().equals(btnSavings)){
                         try{
-                        		String save = purchaseField.getText();
-                        		purchaseSaving.main(conn, Integer.parseInt(save));
-                        		String report = purchaseSaving.getSaving();
+                                String save = purchaseField.getText();
+                                purchaseSaving.main(conn, Integer.parseInt(save));
+                                String report = purchaseSaving.getSaving();
                                 JTextArea employeeInfo = new JTextArea();
                                 employeeInfo.setText(report);
                                 employeeInfo.setEditable(false);
-                                JScrollPane scrollEmpInfo = new JScrollPane(employeeInfo);
+                                JScrollPane scrollEmpInfo = new
+                                JScrollPane(employeeInfo);
                                 JOptionPane.showMessageDialog(null,scrollEmpInfo);
                         } catch(Exception e){
                                 JOptionPane.showMessageDialog(null, "Failed to retrieve Info");
@@ -335,3 +418,4 @@ public class Menu implements ActionListener{
                 }
         }
 }
+
