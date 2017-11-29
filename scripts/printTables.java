@@ -71,7 +71,7 @@ public class printTables {
 
         private static void printEmployees(ResultSet rs, CallableStatement employees) throws SQLException{
                 try{
-                        report += "Employees Tables \n";
+                        report += "Employees Table \n";
                         //Column headings
                         report += "EID" + "\t" + 
                         		"Name" + "\t" + 

@@ -14,6 +14,7 @@ declare
 	numSuppliers number(6);
 	cVisitsMade Customers.visits_made%type;
 	lastVisit Customers.last_visit_date%type;
+	newQoh Products.qoh%type;
 	no_suppliers exception;
         --pNum NUMBER(3,0);
         --CURSOR pur_cursor is select pur# from purchases;
@@ -57,6 +58,12 @@ begin
 		--ordering supply
 		insert into Supplies
 		VALUES (sup_seq.NEXTVAL, prodID, suppID, SYSDATE, requestedQoh);
+		--update qoh with new supplies
+		newQoh := productRecord.qoh + requestedQoh;
+		update Products
+		set qoh = (newQoh)
+		where pid = prodID;
+		dbms_output.put_line('the qoh of ' || productRecord.name || ' is now ' || to_char(newQoh));
 	end if;
 	-- finding the customer who made this purchase
 	select c.cid, visits_made, last_visit_date
