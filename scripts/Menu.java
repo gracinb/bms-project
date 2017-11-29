@@ -372,7 +372,7 @@ connection.
                                 String text = employeeIDField.getText();
                                 monthlySales.main(conn, text);
                                 String report = monthlySales.getReport();
-                                JTextArea employeeInfo = new JTextArea();
+                                JTextArea employeeInfo = new JTextArea(15, 60);
                                 employeeInfo.setText(report);
                                 employeeInfo.setEditable(false);
                                 JScrollPane scrollEmpInfo = new JScrollPane(employeeInfo);
@@ -405,11 +405,10 @@ connection.
                         try{
                                 printTables.main(conn);
                                 String tables = printTables.getReport();
-                                JTextArea tableInfo = new JTextArea();
+                                JTextArea tableInfo = new JTextArea(45, 62);
                                 tableInfo.setText(tables);
                                 tableInfo.setEditable(false);
                                 JScrollPane scrollTableInfo = new JScrollPane(tableInfo);
-                                scrollTableInfo.setSize(500,500);
                                 JOptionPane.showMessageDialog(null,scrollTableInfo);
 
                         } catch(Exception e){

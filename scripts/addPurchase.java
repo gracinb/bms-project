@@ -15,6 +15,8 @@ public class addPurchase {
 	private static String report = "";
     public static void main (Connection conn, String eID, String pID, String cID, Integer qty) throws SQLException{
         try{
+        	Boolean error = false;
+        	
         	//Flush string
         	report = "";
         	
@@ -39,24 +41,27 @@ public class addPurchase {
             cs.setString(3, cID);
             cs.setInt(4, qty);
 			
+            //Assume error
+			report += "Failed to add Purchase";
 			//Check if valid eid sent in
+			if (!rsete.next()) {
+				report += "\n -Invalid Employee ID";
+				error = true;
+			}
 			//Check if valid pid sent in
+			if (!rsetp.next()) {
+				report += "\n -Invalid Product ID";
+				error = true;
+			}
 			//Check if valid cid sent in
-        	
-			if (rsete.next() && rsetp.next() && rsetc.next()) {
+			if (!rsetc.next()) {
+				report += "\n -Invalid Customer ID";
+				error = true;
+			}
+			
+			if (!error) {
 				report = "Successfully added Purchase";
 				cs.execute();
-			} else {
-				report += "Failed to report Purchase";
-				if (!rsete.next()) {
-					report += "\n -Invalid Employee ID";
-				}
-				if (!rsetp.next()) {
-					report += "\n -Invalid Product ID";
-				}
-				if (!rsetc.next()) {
-					report += "\n -Invalid Customer ID";
-				}
 			}
 			
 			rsete.close();

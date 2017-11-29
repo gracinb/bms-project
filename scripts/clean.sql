@@ -1,6 +1,5 @@
 drop trigger supplies_insert;
 drop trigger purchase_insert;
-drop trigger log_insert;
 drop trigger customerInsert;
 drop trigger customerUpdate;
 drop trigger purchasesInsert;

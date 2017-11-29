@@ -1,3 +1,6 @@
+/* package.sql
+Contains all stored functions and procesdures used for project */
+
 create or replace package refcursor_package as
         type ref_cursor is ref cursor;
 

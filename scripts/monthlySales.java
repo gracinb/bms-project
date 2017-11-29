@@ -55,12 +55,19 @@ public class monthlySales {
     	try {
     		//Construct output string to display results
     		report += "Employee Sales Report \n";
+    		//Column headings
+    		report += "Emp ID" + "\t" + 
+    				"Name" + "\t" + 
+    				"Period" + "\t" + 
+    				"Sales#" + "\t" + 
+    				"Qty" + "\t" + 
+    				"$" + "\n";
     		while(rs.next()) {
     			report += rs.getString(1) + "\t" +
     					rs.getString(2) + "\t" +
     					rs.getString(3) + "\t" +
-    					rs.getDouble(4) + "\t" +
-    					rs.getDouble(5) + "\t" +
+    					rs.getInt(4) + "\t" +
+    					rs.getInt(5) + "\t" +
     					rs.getDouble(6) + "\t" + "\n";
     		}
     		cs.close();

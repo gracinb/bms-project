@@ -2,7 +2,6 @@
 File contains all triggers that will be used for project.
 	seq.sql must be run first */
 
-
 create or replace trigger purchase_insert
         after insert on purchases
 	for each row
