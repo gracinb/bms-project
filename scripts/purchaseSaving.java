@@ -14,11 +14,11 @@ import oracle.jdbc.*;
 
 public class purchaseSaving {
 	
-	 private static String saving = "";
+	 private static String report = "";
      public static void main (Connection conn, Integer pNum) throws SQLException{
          try{
         	 //Flush string
-        	 saving = "";
+        	 report = "";
         	 
         	//Select with given pur#
 			PreparedStatement select = conn.prepareCall("SELECT pur# from Purchases where pur# = :1");
@@ -39,10 +39,10 @@ public class purchaseSaving {
              	Double rs = cs.getDouble(1);
              	 
              	//Set string to output result
-             	saving += "Savings this purchase \n";
-             	saving += rs + "\n";
+             	report += "Savings this purchase \n";
+             	report += rs + "\n";
         	} else {
-        		saving += "Invalid purchase ID";
+        		report += "Invalid purchase ID";
         	}
          	
         	select.close();
@@ -52,7 +52,7 @@ public class purchaseSaving {
          catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
      }
      
-     public static String getSaving() {
-    	 return saving;
+     public static String getReport() {
+    	 return report;
      }
 }

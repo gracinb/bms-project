@@ -12,11 +12,11 @@ import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
 public class addPurchase {
-	private static String add = "";
+	private static String report = "";
     public static void main (Connection conn, String eID, String pID, String cID, Integer qty) throws SQLException{
         try{
         	//Flush string
-        	add = "";
+        	report = "";
         	
         	//Select with given eid
 			PreparedStatement selectEmp = conn.prepareCall("SELECT eid from Employees where eid = :1");
@@ -44,18 +44,18 @@ public class addPurchase {
 			//Check if valid cid sent in
         	
 			if (rsete.next() && rsetp.next() && rsetc.next()) {
+				report = "Successfully added Purchase";
 				cs.execute();
-				add += "Successfully added Purchase";
 			} else {
-				add += "Failed to add Purchase";
+				report += "Failed to report Purchase";
 				if (!rsete.next()) {
-					add += "\n -Invalid Employee ID";
+					report += "\n -Invalid Employee ID";
 				}
 				if (!rsetp.next()) {
-					add += "\n -Invalid Product ID";
+					report += "\n -Invalid Product ID";
 				}
 				if (!rsetc.next()) {
-					add += "\n -Invalid Customer ID";
+					report += "\n -Invalid Customer ID";
 				}
 			}
 			
@@ -73,7 +73,7 @@ public class addPurchase {
         catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
     }
     
-    public static String getAdd(){
-    	return add;
+    public static String getReport(){
+    	return report;
     }
 }

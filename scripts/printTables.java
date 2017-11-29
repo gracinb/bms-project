@@ -15,11 +15,11 @@ This class was designed to print the tables and store them into a table variable
 */
 public class printTables {
 
-        private static String tables = "";
+        private static String report = "";
         public static void main (Connection conn) throws SQLException{
                 try{
 	                	//Flush string
-	            		tables = "";
+	            		report = "";
                 	
                         //Create two vectors one for calling the statements and one for getting the results
                         Vector<CallableStatement> callables = new Vector<CallableStatement>(8);
@@ -71,9 +71,9 @@ public class printTables {
 
         private static void printEmployees(ResultSet rs, CallableStatement employees) throws SQLException{
                 try{
-                        tables += "Employees Tables \n";
+                        report += "Employees Tables \n";
                         while(rs.next()){
-                                tables += rs.getString(1) + "\t" +
+                                report += rs.getString(1) + "\t" +
                                           rs.getString(2) + "\t" +
                                           rs.getString(3) + "\t" +
                                           rs.getString(4) + "\t" + "\n";
@@ -85,9 +85,9 @@ public class printTables {
         }
         private static void printCustomers(ResultSet rs, CallableStatement customers) throws SQLException{
                 try{
-                        tables += "\n" + "Customers Table" + "\n";
+                        report += "\n" + "Customers Table" + "\n";
                         while(rs.next()){
-                                tables += rs.getString(1) + "\t" +
+                                report += rs.getString(1) + "\t" +
                                           rs.getString(2) + "\t" +
                                           rs.getString(3) + "\t" +
                                           rs.getInt(4) + "\t" +
@@ -101,9 +101,9 @@ public class printTables {
 
         private static void printProducts(ResultSet rs, CallableStatement products) throws SQLException{
                 try{
-                        tables += "\n" + "Products Table" + "\n";
+                        report += "\n" + "Products Table" + "\n";
                         while(rs.next()){
-                                                 tables += rs.getString(1) + "\t" +
+                                                 report += rs.getString(1) + "\t" +
                                                    rs.getString(2) + "\t" +
                                                    rs.getInt(3) + "\t" +
                                                    rs.getInt(4) + "\t" +
@@ -119,9 +119,9 @@ public class printTables {
 
         private static void printDiscounts (ResultSet rs, CallableStatement discounts) throws SQLException{
                 try{
-                        tables += "\n" + "Discounts Table" + "\n";
+                        report += "\n" + "Discounts Table" + "\n";
                         while(rs.next()){
-                                                 tables += rs.getInt(1) + "\t" +
+                                                 report += rs.getInt(1) + "\t" +
                                                    rs.getDouble(2) + "\n";
                         }
                         discounts.close();
@@ -133,9 +133,9 @@ public class printTables {
 
         private static void printSuppliers(ResultSet rs, CallableStatement suppliers) throws SQLException{
                 try{
-                        tables += "\n" + "Suppliers Table" + "\n";
+                        report += "\n" + "Suppliers Table" + "\n";
                         while(rs.next()){
-                                                 tables += rs.getString(1) + "\t" +
+                                                 report += rs.getString(1) + "\t" +
                                                    rs.getString(2) + "\t" +
                                                    rs.getString(3) + "\t" +
                                                    rs.getString(4) + "\t" +
@@ -150,9 +150,9 @@ public class printTables {
 
         private static void printPurchases(ResultSet rs, CallableStatement purchases) throws SQLException{
                 try{
-                        tables += "\n" + "Purchases Table" + "\n";
+                        report += "\n" + "Purchases Table" + "\n";
                         while(rs.next()){
-                                                 tables += rs.getInt(1) + "\t" +
+                                                 report += rs.getInt(1) + "\t" +
                                                    rs.getString(2) + "\t" +
                                                    rs.getString(3) + "\t" +
                                                    rs.getString(4) + "\t" +
@@ -167,9 +167,9 @@ public class printTables {
         }
         private static void printSupplies (ResultSet rs, CallableStatement supplies) throws SQLException{
                 try{
-                        tables += "\n" + "Supplies Table" + "\n";
+                        report += "\n" + "Supplies Table" + "\n";
                         while(rs.next()){
-                                                 tables += rs.getInt(1) + "\t" +
+                                                 report += rs.getInt(1) + "\t" +
                                                    rs.getString(2) + "\t" +
                                                    rs.getString(3) + "\t" +
                                                    rs.getString(4) + "\t" +
@@ -183,9 +183,9 @@ public class printTables {
 
         private static void printLogs (ResultSet rs, CallableStatement logs)throws SQLException{
                 try{
-                        tables += "\n" + "Logs Table" + "\n";
+                        report += "\n" + "Logs Table" + "\n";
                         while(rs.next()){
-                                                 tables += rs.getInt(1) + "\t" +
+                                                 report += rs.getInt(1) + "\t" +
                                                    rs.getString(2) + "\t" +
                                                    rs.getString(3) + "\t" +
                                                    rs.getString(4) + "\t" +
@@ -199,7 +199,7 @@ public class printTables {
         }
         
         //getter for GUI to grab the tables and print them
-        public static String getTables(){
-                return tables;
+        public static String getReport(){
+                return report;
         }
 }

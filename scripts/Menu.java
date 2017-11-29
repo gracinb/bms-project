@@ -327,16 +327,16 @@ connection.
         @Override
         public void actionPerformed(ActionEvent event) {
                 if(btnAddCustomer.isEnabled() && event.getSource().equals(btnAddCustomer)){
-                                String cID = addCustomerField.getText();
-                                String cName = addCustomerNameField.getText();
-                                String cTelephone = addCustomerTeleField.getText();
-                                try {
-                                        addCustomer.main(conn,cID,cName,cTelephone);
-                                        JOptionPane.showMessageDialog(null, "Successfully added Customer");
-                                } catch (SQLException e) {
-                                        // TODO Auto-generated catch block
-                                        JOptionPane.showMessageDialog(null, "Failed to add Customer");
-                                }
+                    try {
+                        String cID = addCustomerField.getText();
+                        String cName = addCustomerNameField.getText();
+                        String cTelephone = addCustomerTeleField.getText();
+                        addCustomer.main(conn,cID,cName,cTelephone);
+                        String report = addCustomer.getReport();
+                        JOptionPane.showMessageDialog(null, report);
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Failed to add Customer");
+                    }
                 }
   //Check to see if the add to purchase button was clicked and if so execute the add to purchase PL/SQL function/procedure
                 if(btnAddPurchase.isEnabled() && event.getSource().equals(btnAddPurchase) ){
@@ -347,7 +347,7 @@ connection.
                         String cID = cIDField.getText();
                         Integer qty = Integer.parseInt(qtyField.getText());
                         addPurchase.main(conn, eID, pID, cID, qty);
-                        String report = addPurchase.getAdd();
+                        String report = addPurchase.getReport();
                         JOptionPane.showMessageDialog(null, report);
                     } catch(Exception e){
                         JOptionPane.showMessageDialog(null, "Failed to add Purchase");
@@ -359,7 +359,7 @@ connection.
                         try{
                                 String del = deletePurchaseField.getText();
                                 deletePurchase.main(conn,Integer.parseInt(del));
-                                String report = deletePurchase.getDelete();
+                                String report = deletePurchase.getReport();
                                 JOptionPane.showMessageDialog(null, report);
                         } catch(Exception e){
                                 JOptionPane.showMessageDialog(null,"Failed to delete Purchase");
@@ -388,7 +388,7 @@ connection.
                         try{
                                 String save = purchaseField.getText();
                                 purchaseSaving.main(conn, Integer.parseInt(save));
-                                String report = purchaseSaving.getSaving();
+                                String report = purchaseSaving.getReport();
                                 JTextArea employeeInfo = new JTextArea();
                                 employeeInfo.setText(report);
                                 employeeInfo.setEditable(false);
@@ -404,7 +404,7 @@ connection.
                 if(btnPrintTables.isEnabled() && event.getSource().equals(btnPrintTables)){
                         try{
                                 printTables.main(conn);
-                                String tables = printTables.getTables();
+                                String tables = printTables.getReport();
                                 JTextArea tableInfo = new JTextArea();
                                 tableInfo.setText(tables);
                                 tableInfo.setEditable(false);

@@ -13,11 +13,11 @@ import oracle.jdbc.*;
 
 public class deletePurchase {
 
-	 private static String delete = "";
+	 private static String report = "";
      public static void main (Connection conn, Integer pNum) throws SQLException{
          try{
         	 //Flush string
-        	 delete = "";
+        	 report = "";
         	 
         	 //Select with given pur#
         	 Integer purNum = 0;
@@ -39,9 +39,9 @@ public class deletePurchase {
 	        	 
 	        	 //Execute stored procedure, no out params
 	        	 cs.execute();
-	        	 delete = "Purchase Returned " + pNum;
+	        	 report = "Purchase Returned " + pNum;
         	 } else {
-        		 delete = "Invalid Purchase ID";
+        		 report = "Invalid Purchase ID";
         	 }
         	 
         	 rset.close();
@@ -52,7 +52,7 @@ public class deletePurchase {
          catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
      }
      
-     public static String getDelete(){
-    	 return delete;
+     public static String getReport(){
+    	 return report;
      }
 }
