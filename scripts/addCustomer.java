@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+/**
+ * This class handles the add customer method.
+ */
 public class addCustomer{
 	private static String report = "";
     public static void main (Connection conn, String cID, String cName, String cTelephone) throws Exception{
@@ -16,6 +18,7 @@ public class addCustomer{
 			selectCus.setString(1, cID);        	 
 			ResultSet rsetc = selectCus.executeQuery();
 			
+            //Prepare add customer as a callable statement with cid, cname and ctelephone
 			CallableStatement cs = conn.prepareCall("begin refcursor_package.add_customer(?, ?, ?); end;");
 			cs.setString(1, cID);
             cs.setString(2,cName);
@@ -39,6 +42,7 @@ public class addCustomer{
         }
     }
     
+    //This function tells us if add customer was successful or not and what went wrong
     public static String getReport(){
     	return report;
     }
