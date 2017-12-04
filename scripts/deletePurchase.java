@@ -11,6 +11,9 @@ import java.util.Vector;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
+/*
+ * This class sets up the delete purchase method
+ */
 public class deletePurchase {
 
 	 private static String report = "";
@@ -51,7 +54,8 @@ public class deletePurchase {
          catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
          catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
      }
-     
+    
+    //This methods tells us if delete purchase was successful or not and what went wrong
      public static String getReport(){
     	 return report;
      }
