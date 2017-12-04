@@ -11,6 +11,9 @@ import java.util.Vector;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
+/** 
+ * The purpose of this class to call the add purchase method
+ **/
 public class addPurchase {
 	private static String report = "";
     public static void main (Connection conn, String eID, String pID, String cID, Integer qty) throws SQLException{
@@ -78,6 +81,7 @@ public class addPurchase {
         catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
     }
     
+    //This function returns the report, telling us if add purchase was successful or not
     public static String getReport(){
     	return report;
     }
