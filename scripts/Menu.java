@@ -43,34 +43,21 @@ public class Menu implements ActionListener{
         private JButton btnSavings;
         private JButton btnPrintTables;
         private JButton btnAddCustomer;
-        
-        /**
-         * Launch the application.
-         */
- /*     public static void main(String[] args) {
-                EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                                try {
-                                        Menu window = new Menu();
-                                        window.frame.setVisible(true);
-                                } catch (Exception e) {
-                                        e.printStackTrace();
-                                }
-                        }
-                });
-        }*/
 
-        /**
-         * Create the Menu and continue the already established
-connection.
+        /*
+         * Input: Connection conn
+         * Output: Creation of a Menu object
+         * Purpose: This is the constructor of the Menu object that establishes and sets a connection and creates the Menu UI
          */
         public Menu(Connection conn) {
                 this.conn = conn;
                 initialize();
         }
 
-        /**
-         * Initialize the contents of the frame.
+        /*
+         * Input: Nothing
+         * Output: Nothing
+         * Purpose: Creates and paints the Menu options in the JFrame essetially creating the look of the GUI
          */
         private void initialize() {
                 frame = new JFrame();
@@ -224,13 +211,19 @@ connection.
                 JLabel lblTelephone = new JLabel("Telephone #");
                 lblTelephone.setBounds(425, 293, 92, 16);
                 frame.getContentPane().add(lblTelephone);
+                //All of these methods add updating features to their respective menu options. When all fields are full then the buttons are
+                //enabled
                 updateForCustomer();
                 createUpdater(btnDelete,deletePurchaseField);
                 createUpdater(btnInfo,employeeIDField );
                 createUpdater(btnSavings, purchaseField);
                 updaterForAddPur();
         }
-        //General purpose function to add listeners and checks to three specific fields and buttons
+        /*
+        * Input: Nothing
+        * Output: Nothing
+        * Purpose: Adds the updating feature to all fields. THis enables the button when all fields are filled
+        */
         private void updateForCustomer(){
                 addCustomerField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
@@ -266,7 +259,12 @@ connection.
             });
         }
 
-        //General purpose function to add listeners and checks to three specific fields and buttons
+        /*
+        * Input: JButton button, JTextField field
+        * Output: Nothing
+        * Purpose: Again adds an updater to wait to enable the button until all fields are filled. However, this is meant for options that
+        * have only one button and field.
+        */
         private void createUpdater(final JButton button, final JTextField field){
                 field.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
@@ -278,7 +276,12 @@ connection.
                 }
             });
         }
-        //General function to add key listeners to each of the four textfields required and check to see if the button should be enabled
+        
+        /*
+        * Input: Nothing
+        * Output: Nothing
+        * Purpose: Creates an updater and listener for each field that way when all of filled the button to add a purchase is enabled
+        */
         private void updaterForAddPur(){
                 eIDField.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent e) {
@@ -323,7 +326,11 @@ connection.
             //need to grab info from the text fields
         }
 
-        //Event driven function
+        /*
+        * Input: ActionEvent event
+        * Output: Nothing
+        * Purpose: Check to see which button was pressed and execute the functionality corresponding to that button
+        */
         @Override
         public void actionPerformed(ActionEvent event) {
                 if(btnAddCustomer.isEnabled() && event.getSource().equals(btnAddCustomer)){
