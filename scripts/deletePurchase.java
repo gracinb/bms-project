@@ -16,7 +16,12 @@ import oracle.jdbc.*;
  */
 public class deletePurchase {
 
-	 private static String report = "";
+     private static String report = "";
+     /*
+     * Input: Connection conn, purchase Number (pNum)
+     * Output: Nothing
+     * Purpose: Delete a purchase from the purchase tables by calling the delete purchase PL/SQL code
+     */
      public static void main (Connection conn, Integer pNum) throws SQLException{
          try{
         	 //Flush string
@@ -54,8 +59,11 @@ public class deletePurchase {
          catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
          catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
      }
-    
-    //This methods tells us if delete purchase was successful or not and what went wrong
+     /*
+     * Input: Nothing
+     * Output: report stating if the remove was successful
+     * Purpose: This methods tells us if delete purchase was successful or not and what went wrong
+     */    
      public static String getReport(){
     	 return report;
      }
