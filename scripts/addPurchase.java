@@ -15,7 +15,12 @@ import oracle.jdbc.*;
  * The purpose of this class to call the add purchase method
  **/
 public class addPurchase {
-	private static String report = "";
+    private static String report = "";
+    /*
+    * Input: Connection conn, Employee ID, Product ID, Customer ID, QTY 
+    * Output: Nothing
+    * Purpose: Ensure eid, cid, and pid are proper values then call the PL/SQL code to add the purchase and check if the purchase was added
+    */    
     public static void main (Connection conn, String eID, String pID, String cID, Integer qty) throws SQLException{
         try{
         	Boolean error = false;
@@ -80,8 +85,11 @@ public class addPurchase {
         catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
         catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
     }
-    
-    //This function returns the report, telling us if add purchase was successful or not
+    /*
+     * Input: Nothing
+     * Output: String report
+     * Purpose: This function returns the report, telling us if add purchase was successful or not
+     */
     public static String getReport(){
     	return report;
     }
