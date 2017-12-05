@@ -24,7 +24,9 @@ import java.sql.SQLException;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
-
+/**
+ * This class is the GUI for the log in screen and connects a user to the database in oracle.
+ */
 public class startUpScreen implements ActionListener{
 
         private JFrame frame;
@@ -49,14 +51,18 @@ public class startUpScreen implements ActionListener{
         }
 
         /**
-         * Create the application.
+         * Input: None
+         * Output: None
+         * Purpose: initializes the application.
          */
         public startUpScreen() {
                 initialize();
         }
 
         /**
-         * Initialize the contents of the frame.
+         * Input: None
+         * Output: None
+         * Purpose: Initialize the contents of the frame.
          */
         private void initialize() {
                 frame = new JFrame();
@@ -111,7 +117,11 @@ public class startUpScreen implements ActionListener{
                 lblPassword.setBounds(80, 115, 69, 16);
                 frame.getContentPane().add(lblPassword);
         }
-        // When the connect button is pressed attempt to connect and display an error message if you cannot
+        /**
+         * Input: ActionEvent
+         * Output: None
+         * Purpose: Asks for username and password to oracle. It logs you in and When the connect button is pressed attempt to connect and display an error message if you cannot
+         **/
         public void actionPerformed(ActionEvent event){
                 if(btnConnect.isEnabled() && event.getSource().equals(btnConnect)){
                         try{
