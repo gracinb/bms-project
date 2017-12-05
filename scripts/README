@@ -1,0 +1,27 @@
+Team: Team Members: Shafkat Haque, Brian Gracin, Dominic Schroeder
+
+Preparing work space:
+Start sqlplus in the folder containing the PL/SQL files and run refresh (The second line in refresh.sql calls the file to drop/create the tables)
+
+start refresh
+commit;
+
+This will drop everything and bring everything back up in the correct order.
+Then compile the java files:
+
+javac addCustomer.java
+javac addPurchase.java
+javac deletePurchase.java
+javac monthlySales.java
+javac printTables.java
+javac Menu.java
+javac startUpScreen.java
+
+Then run the java program with:
+
+java startUpScreen
+
+This will start the java app prompting a login, once logged in use GUI to perform actions.
+
+Known issues from demo: When purchasing an item if the amount input is greater than amount in stock GUI states success but transaction is stopped in the PL/SQL.
+						The number of visits column in customers is not updated when a purchase is returned.
