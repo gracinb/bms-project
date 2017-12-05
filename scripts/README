@@ -1,5 +1,26 @@
 Team: Team Members: Shafkat Haque, Brian Gracin, Dominic Schroeder
 
+Files:
+	Java:
+		addCustomer.java
+		addPurchase.java
+		deletePurchase.java
+		monthlySales.java
+		printTables.java
+		purchaseSaving.java
+		Menu.java
+		startUpScreen.java
+	Required SQL:
+		seq.sql (Contains the sequences)
+		triggers.sql (Contains the triggers)
+		package.sql
+	Setup SQL files:
+		refresh.sql (Calls other SQL files to refresh database)
+		clean.sql (Drops triggers to allow table drop/create)
+		projTables.sql (Contains tables used for the demo)
+	Text file:
+		TeamReport.txt
+
 Preparing work space:
 Start sqlplus in the folder containing the PL/SQL files and run refresh (The second line in refresh.sql calls the file to drop/create the tables, one is included with tables from demo)
 
