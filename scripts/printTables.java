@@ -68,8 +68,12 @@ public class printTables {
                 catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
-
-        //This function creates a formatted Employees table for the user to see
+    
+        /**
+         * Input: ResultSet, CallableStatement
+         * Output: None
+         * Purpose: This function creates a formatted Employees table for the user to see and writes it to the report
+         */
         private static void printEmployees(ResultSet rs, CallableStatement employees) throws SQLException{
                 try{
                         report += "Employees Table \n";
@@ -90,7 +94,11 @@ public class printTables {
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
     
-        //This function creates a formatted Customers table for the user to see
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function creates a formatted Customers table for the user to see and writes it to the report
+     */
         private static void printCustomers(ResultSet rs, CallableStatement customers) throws SQLException{
                 try{
                         report += "\n" + "Customers Table" + "\n";
@@ -113,7 +121,11 @@ public class printTables {
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
     
-        //This function creates a formatted Products table for the user to see
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function creates a formatted Products table for the user to see and writes it to the report
+     */
         private static void printProducts(ResultSet rs, CallableStatement products) throws SQLException{
                 try{
                         report += "\n" + "Products Table" + "\n";
@@ -139,7 +151,11 @@ public class printTables {
 
         }
 
-        //This function creates a formatted Discounts table for the user to see
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function creates a formatted Discounts table for the user to see and writes it to the report
+     */
         private static void printDiscounts (ResultSet rs, CallableStatement discounts) throws SQLException{
                 try{
                         report += "\n" + "Discounts Table" + "\n";
@@ -156,7 +172,11 @@ public class printTables {
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
 
         }
-        //This function creates a formatted Suppliers table for the user to see
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function creates a formatted Suppliers table for the user to see and writes it to the report
+     */
         private static void printSuppliers(ResultSet rs, CallableStatement suppliers) throws SQLException{
                 try{
                         report += "\n" + "Suppliers Table" + "\n";
@@ -181,7 +201,11 @@ public class printTables {
         }
     
     
-        ////This function creates a formatted Purchases table for the user to see
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function creates a formatted Purchases table for the user to see and writes it to the report
+     */
         private static void printPurchases(ResultSet rs, CallableStatement purchases) throws SQLException{
                 try{
                         report += "\n" + "Purchases Table" + "\n";
@@ -208,7 +232,11 @@ public class printTables {
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
     
-        //This function creates a formatted Supplies table for the user to see
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function creates a formatted Supplies table for the user to see and writes it to the report
+     */
         private static void printSupplies (ResultSet rs, CallableStatement supplies) throws SQLException{
                 try{
                         report += "\n" + "Supplies Table" + "\n";
@@ -231,7 +259,11 @@ public class printTables {
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
     
-        //This function creates a formatted table for the log so the user can see what methods they have called
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: This function writes a formatted table for the log to a report so the user can see what actions they've performed thus far
+     */
         private static void printLogs (ResultSet rs, CallableStatement logs)throws SQLException{
                 try{
                         report += "\n" + "Logs Table" + "\n";
@@ -255,8 +287,11 @@ public class printTables {
                 catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
                 catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
         }
-        
-        //getter for GUI to grab the tables and print them
+    /**
+     * Input: ResultSet, CallableStatement
+     * Output: None
+     * Purpose: getter for GUI to grab the tables and print them
+     */
         public static String getReport(){
                 return report;
         }
