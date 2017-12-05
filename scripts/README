@@ -1,19 +1,20 @@
 Team: Team Members: Shafkat Haque, Brian Gracin, Dominic Schroeder
 
 Preparing work space:
-Start sqlplus in the folder containing the PL/SQL files and run refresh (The second line in refresh.sql calls the file to drop/create the tables)
+Start sqlplus in the folder containing the PL/SQL files and run refresh (The second line in refresh.sql calls the file to drop/create the tables, one is included with tables from demo)
 
 start refresh
 commit;
 
 This will drop everything and bring everything back up in the correct order.
-Then compile the java files:
+Then exit sqlplus and compile the java files:
 
 javac addCustomer.java
 javac addPurchase.java
 javac deletePurchase.java
 javac monthlySales.java
 javac printTables.java
+javac purchaseSaving.java
 javac Menu.java
 javac startUpScreen.java
 
