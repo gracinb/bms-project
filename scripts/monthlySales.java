@@ -11,8 +11,17 @@ import java.util.Vector;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
+/*
+ * This class sets up the employee sales report method
+ */
 public class monthlySales {
+
 	private static String report = "";
+	/*
+     * Input: Connection conn, Employee ID
+     * Output: Nothing
+     * Purpose: Ensure valid eid and call PL/SQL procedure to get employee report.
+     */
     public static void main (Connection conn, String empID) throws SQLException{
         try{
         	//Flush string
@@ -50,7 +59,11 @@ public class monthlySales {
         e.printStackTrace(System.out);
         System.out.println(e);}
     }
-    
+    /*
+     * Input: Result Set, Callable Statment
+     * Output: Nothing
+     * Purpose: Generates the text for the report using the Result Set
+     */
     private static void reportEmployeeSales(ResultSet rs, CallableStatement cs) throws SQLException{
     	try {
     		//Construct output string to display results
@@ -75,7 +88,11 @@ public class monthlySales {
     	catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
         catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
     }
-    
+    /*
+     * Input: Nothing
+     * Output: String report
+     * Purpose: This function returns the report
+     */
     public static String getReport() {
     	return report;
     }

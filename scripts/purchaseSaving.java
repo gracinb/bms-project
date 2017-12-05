@@ -12,13 +12,20 @@ import java.util.Vector;
 import oracle.jdbc.pool.OracleDataSource;
 import oracle.jdbc.*;
 
-public class purchaseSaving {
-	
-	 private static String report = "";
-     public static void main (Connection conn, Integer pNum) throws SQLException{
-         try{
-        	 //Flush string
-        	 report = "";
+/*
+ * This class sets up the purchase savings method
+ */
+public class purchaseSaving {	
+	private static String report = "";
+	/*
+    * Input: Connection conn, purchase Number (pNum)
+    * Output: Nothing
+    * Purpose: Display purchase savings given a purchase number, calls purchase savings PL/SQL code
+    */  
+    public static void main (Connection conn, Integer pNum) throws SQLException{
+        try{
+        	//Flush string
+        	report = "";
         	 
         	//Select with given pur#
 			PreparedStatement select = conn.prepareCall("SELECT pur# from Purchases where pur# = :1");
@@ -47,12 +54,16 @@ public class purchaseSaving {
          	
         	select.close();
         	cs.close();
-         }	
-         catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
-         catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
-     }
-     
-     public static String getReport() {
-    	 return report;
-     }
+        }	
+        catch (SQLException ex) { System.out.println ("\n*** SQLException caught ***\n" + ex.getMessage());}
+        catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
+    }
+    /*
+    * Input: Nothing
+    * Output: String report
+    * Purpose: This methods returns pruchase savings report
+    */ 
+    public static String getReport() {
+    	return report;
+    }
 }
