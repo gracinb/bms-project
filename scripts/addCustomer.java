@@ -8,7 +8,12 @@ import java.sql.SQLException;
  * This class handles the add customer method.
  */
 public class addCustomer{
-	private static String report = "";
+    private static String report = "";
+    /*
+     * Input: Connection conn, Sring customer ID, string customer Name, String customer telephone 
+     * Output: Nothing
+     * Purpose: Creates a report and calls the addCustomer procedure from the PL/SQL and checks to see if the customer was added
+     */
     public static void main (Connection conn, String cID, String cName, String cTelephone) throws Exception{
         try {
         	//Flush string
@@ -41,8 +46,11 @@ public class addCustomer{
                 System.out.println ("\n*** other Exception caught ***\n");
         }
     }
-    
-    //This function tells us if add customer was successful or not and what went wrong
+   /*
+    * Input: Nothing
+    * Output: String report
+    * Purpose: get the report's value to see if the Customer was added
+    */    
     public static String getReport(){
     	return report;
     }
